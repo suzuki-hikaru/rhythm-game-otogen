@@ -4,41 +4,22 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel=“stylesheet” href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel=“stylesheet” href="{{ url_for('static', filename='CSS/style.css') }}">
     <meta charset="UTF-8">
-    <title>会話note</title>
+    <title>音ゲーム</title>
 </head>
 
 <body>
+    <!-- ナビバー -->
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="/">音ゲーム</a>
     </nav>
+    <!-- コンテンツ -->
     <div class="container">
-        <div class="row">
-            <!-- main -->
-            <div class="col-8">
-                <h2>プレイモード</h2>
-                <form action="/playMode" method="POST" enctype="multipart/form-data" class="form-inline">
-                    <label class="sr-only" for="inlineFormInputName2">YoutubeのURL</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="name"
-                        placeholder="https://www.youtube.com/watch?v=○○○○○○">
-                    <button type="submit" class="btn btn-primary mb-2">検索</button>
-                </form>
-            </div>
-            <!-- endmain -->
-            <!-- sub -->
-            <div class="col-4">
-                <h2>クリエイトモード</h2>
-                <form action="/createMode" method="POST" enctype="multipart/form-data" class="form-inline">
-                    <label class="sr-only" for="inlineFormInputName2">YoutubeのURL</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="name"
-                        placeholder="https://www.youtube.com/watch?v=○○○○○○">
-                    <button type="submit" class="btn btn-primary mb-2">検索</button>
-                </form>
-            </div>
-            <!-- endsub -->
-        </div>
+        {% block content %}
+        {% endblock content %}
     </div>
-
+    <!-- add:フッター -->
 </body>
-<html>
+
+</html>

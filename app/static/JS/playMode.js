@@ -10,6 +10,10 @@ function SquareLoop() {
     var hitSizeY = 15;
     var spaceFlag = false;
     var num = 0;
+
+    // 追加
+    var time = 0;
+
     /*キーボード操作の制御*/
     document.addEventListener("keydown", KeyDownFunc);
     document.addEventListener("keyup", KeyUpFunc);
@@ -46,6 +50,7 @@ function SquareLoop() {
             ctx.fillText('HIT!' + num, 300, 280);
         }
     }
+
     setInterval(render, 50);
     setInterval(hit, 50);
 }

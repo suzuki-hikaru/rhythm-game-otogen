@@ -36,6 +36,6 @@ git init
 git add .
 git commit -m "base"
 git branch -M master
-git remote add origin git@github.com:suzuki-hikaru/advent_practice.git
-git remote set-url origin git@github.com:suzuki-hikaru/advent_practice.git
+git remote add origin git@github.com:suzuki-hikaru/rhythm-game.git
+git remote set-url origin git@github.com:suzuki-hikaru/rhythm-game.git
 git push -u origin master

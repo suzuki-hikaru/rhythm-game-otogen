@@ -1,0 +1,62 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<h1>クリエイトモードの確認</h1>
+<p>あなたが入力したURL</p>
+<ul>
+    <li><a href="{{ url }}" target="blank">{{ url }}</a></li>
+    <li>{{ title }}</li>
+    <li>{{ path }}</li>
+</ul>
+<p>確認したら下の再生ボタンを押してください。\nゲームが始ります</p>
+
+<!-- error:保存したビデオでプレイする場合 -->
+<form action="/createMode" method="POST" enctype="multipart/form-data" class="form-inline">
+    <button type="submit" class="btn btn-primary mb-2">オフラインでplay</button>
+</form>
+
+<!-- ここにビデオが表示 -->
+<div id="ytplayer"></div>
+
+<img src="/static/images/play.png" width="30px" height="30px" onclick="player.playVideo()" />
+
+<script>
+    // youtubeidの取得
+    function getId() {
+        var url = "{{ url }}";
+        var videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+        if (videoid != null) {
+            // console.log("video id = ", videoid[1]);
+            videoId = videoid[1]
+        } else {
+            console.log("The youtube url is not valid.");
+        }
+    }
+
+    // 関数呼び出し、id更新
+    var videoId;
+    getId()
+
+    // iframeの作成
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+
+    // iframeの設定
+    function onYouTubePlayerAPIReady() {
+        player = new YT.Player('ytplayer', {
+            height: '360',
+            width: '640',
+            videoId: videoId,
+        });
+    }
+</script>
+
+<!-- error:別ファイルでJSを参照
+ <script src="/static/JS/createConfirm.js">
+</script>  -->
+
+{% endblock content %}

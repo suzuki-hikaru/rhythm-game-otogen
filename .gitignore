@@ -1,3 +1,5 @@
 /my_venv/
+/app/__pycache__/
 /app/rsc/
 /app/python/config/
+/app/static/images/

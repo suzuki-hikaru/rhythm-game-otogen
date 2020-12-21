@@ -1,0 +1,12 @@
+<h1>プレイモードの確認</h1>
+<p>あなたが入力したURL</p>
+<ul>
+    <li>{{ url }}</li>
+    <li>{{ title }}</li>
+    <li>{{ path }}</li>
+</ul>
+<p>確認したら下のボタンを押してください</p>
+
+<form action="/playMode" method="POST" enctype="multipart/form-data" class="form-inline">
+    <button type="submit" class="btn btn-primary mb-2">始める</button>
+</form>
