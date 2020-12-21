@@ -1,0 +1,41 @@
+リポジトリのクローン
+git clone git@github.com:user/111.git
+
+インストールに必要な情報の更新
+sudo apt update
+sudo apt upgrade
+
+sudo apt install python-pip
+pip install --upgrade pip
+sudo apt install python3-venv
+
+vエンブ
+python3 -m venv my_venv
+. my_venv/bin/activate
+
+pip list
+pip freeze
+pip freeze > requirements.txt
+
+pip install -r requirements.txt
+
+python app.py
+
+djnago,Flask起動
+
+
+(最初にreadmeを作った時)---
+git fetch
+git merge origin/master
+
+こうするとlocalにReadme.mdがmergeされる。あとは以下のコマンドでpushを再度チャレンジ。
+git push -u origin master
+---------------------------
+
+git init
+git add .
+git commit -m "base"
+git branch -M master
+git remote add origin git@github.com:suzuki-hikaru/advent_practice.git
+git remote set-url origin git@github.com:suzuki-hikaru/advent_practice.git
+git push -u origin master
