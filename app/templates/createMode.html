@@ -14,15 +14,35 @@
 
 <!-- ゲームコントローラー -->
 <img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
+<img src="/static/images/pause.jpg" width="100px" height="100px" onclick="stopGame();" />
 <img src="/static/images/taiko.png" width="100px" height="100px" onclick="saveDB();" />
-<img src="/static/images/taiko.png" width="100px" height="100px" onclick="saveDB2();" />
 
 <!-- error:保存したビデオでプレイする場合 
 <form action="/offlineMode" method="POST" enctype="multipart/form-data" class="form-inline">
     <button type="submit" class="btn btn-primary mb-2">オフラインでplay</button>
 </form> -->
-<script src="/static/JS/createMode.js"></script>
 <script>
+    var count;
+
+    function countup() {
+        count++;
+        console.log(count);
+    };
+
+    function startGame() {
+        player.playVideo();
+        count = 0; //カウントの初期化
+        timerID = setInterval('countup();', 1000); //1秒毎にcountup()を呼び出し
+    };
+
+    function stopGame() {
+        player.stopVideo();
+    };
+
+    function saveDB() {
+        console.log("押しました！" + count);
+    };
+
     // youtubeidの取得
     function getId() {
         var url = "{{ url }}";
