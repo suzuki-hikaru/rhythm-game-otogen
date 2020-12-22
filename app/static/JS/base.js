@@ -1,14 +1,7 @@
 // ページが読み込み時に実行
 function init() {
     is_login();
-    // addUserId();
 }
-
-function addUserId() {
-    firebase.auth().onAuthStateChanged(function (user) {
-        console.log(1);
-    });
-};
 
 // ログアウト処理
 function logout() {
@@ -23,8 +16,8 @@ function logout() {
 function is_login() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            console.log(1);
-            console.log('userId: ' + user.uid);
+            console.log("login success!!");
+            console.log('your userId: ' + user.uid);
         } else {
             window.location.href = '/login';
         }

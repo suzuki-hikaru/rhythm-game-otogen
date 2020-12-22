@@ -13,7 +13,7 @@ var uiConfig = {
         uiShown: function () {
             // The widget is rendered.
             // Hide the loader.
-            document.getElementById('loader').style.display = 'block';
+            // document.getElementById('loader').style.display = 'block';
         }
 
     },

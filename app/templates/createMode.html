@@ -17,12 +17,10 @@
 <img src="/static/images/pause.jpg" width="100px" height="100px" onclick="stopGame();" />
 <img src="/static/images/taiko.png" width="100px" height="100px" onclick="saveDB();" />
 
-<!-- error:保存したビデオでプレイする場合 
-<form action="/offlineMode" method="POST" enctype="multipart/form-data" class="form-inline">
-    <button type="submit" class="btn btn-primary mb-2">オフラインでplay</button>
-</form> -->
+<!-- error: 別ファイルでのJSの扱い -->
+
 <script>
-    var count;
+    var count = 0;
 
     function countup() {
         count++;
@@ -40,7 +38,16 @@
     };
 
     function saveDB() {
-        console.log("押しました！" + count);
+        const user = firebase.auth().currentUser;
+        const userName = user.displayName;
+        const songURL = "{{ url }}";
+        const countToFirebase = count;
+        firebase.database().ref('records/' + user.uid).push().set({
+            name: userName,
+            url: songURL,
+            time: countToFirebase,
+        });
+        console.log("どん！　" + countToFirebase);
     };
 
     // youtubeidの取得
