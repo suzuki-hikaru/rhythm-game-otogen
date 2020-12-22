@@ -8,12 +8,20 @@ app = Flask(__name__)
 ルーティングの設定 hikaru
 """""""""""""""""""""""""""
 @app.route("/", methods=['GET','POST'])
+def r():
+    return render_template("index.html",)
+
+@app.route("/index", methods=['GET','POST'])
 def index():
     return render_template("index.html",)
 
 @app.route("/test", methods=['GET','POST'])
 def test():
     return render_template("test.html",)
+
+@app.route("/login", methods=['GET','POST'])
+def login():
+    return render_template("login.html",)
 
 @app.route("/createMode", methods=['GET'])
 def get_create():

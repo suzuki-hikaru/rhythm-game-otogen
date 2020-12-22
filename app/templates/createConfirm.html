@@ -1,25 +1,28 @@
 {% extends 'base.html'%}
 
 {% block content %}
-<h1>クリエイトモードの確認</h1>
+<h1>クリエイトモード</h1>
 <p>あなたが入力したURL</p>
 <ul>
-    <li><a href="{{ url }}" target="blank">{{ url }}</a></li>
-    <li>{{ title }}</li>
-    <li>{{ path }}</li>
+    <li>タイトル：{{ title }}</li>
+    <li>リンク：<a href="{{ url }}" target="blank">{{ url }}</a></li>
+    <li>保存先：{{ path }}</li>
 </ul>
-<p>確認したら下の再生ボタンを押してください。\nゲームが始ります</p>
-
-<!-- error:保存したビデオでプレイする場合 -->
-<form action="/createMode" method="POST" enctype="multipart/form-data" class="form-inline">
-    <button type="submit" class="btn btn-primary mb-2">オフラインでplay</button>
-</form>
+<p>確認したら下の再生ボタンを押してください。</p>
 
 <!-- ここにビデオが表示 -->
 <div id="ytplayer"></div>
 
-<img src="/static/images/play.png" width="30px" height="30px" onclick="player.playVideo()" />
+<img src="/static/images/play.png" width="100px" height="100px" onclick="startGame()" />
 
+<img src="/static/images/taiko.png" width="100px" height="100px" onclick="saveDB()" />
+
+<!-- error:保存したビデオでプレイする場合 
+<form action="/createMode" method="POST" enctype="multipart/form-data" class="form-inline">
+    <button type="submit" class="btn btn-primary mb-2">オフラインでplay</button>
+</form> -->
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
 <script>
     // youtubeidの取得
     function getId() {
@@ -33,6 +36,19 @@
         }
     }
 
+    var count;
+
+    function startGame() {
+        player.playVideo();
+        count = 0; //カウントの初期化
+        timerID = setInterval('countup()', 1000); //1秒毎にcountup()を呼び出し
+    }
+
+    function saveDB() {
+        console.log("押しました！" + count)
+
+    }
+
     // 関数呼び出し、id更新
     var videoId;
     getId()
@@ -43,9 +59,8 @@
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    var player;
-
     // iframeの設定
+    var player;
     function onYouTubePlayerAPIReady() {
         player = new YT.Player('ytplayer', {
             height: '360',
@@ -53,6 +68,12 @@
             videoId: videoId,
         });
     }
+
+    function countup() {
+        count++;
+        console.log(count)
+    }
+
 </script>
 
 <!-- error:別ファイルでJSを参照

@@ -19,10 +19,9 @@ pip freeze > requirements.txt
 
 pip install -r requirements.txt
 
-python app.py
+Flask起動
 
-djnago,Flask起動
-
+python run.py
 
 (最初にreadmeを作った時)---
 git fetch
