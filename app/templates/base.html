@@ -2,34 +2,39 @@
 <html lang="ja">
 
 <head>
+    <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel=“stylesheet” href="{{ url_for('static', filename='CSS/style.css') }}">
+    <!-- css -->
+    <!-- <link rel=“stylesheet” href="{{ url_for('static', filename='CSS/style.css') }}"> -->
+
     <meta charset="UTF-8">
     <title>音ゲーム</title>
 </head>
 
-<body>
-    <!-- -----------firebase CDN------------- -->
-    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<body onload="init();">
+    <!-- firebase CDN -->
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
     <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
-    <!-- -------------firebase ui CDN ------------------- -->
+    <!-- firebase ui CDN  -->
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-
-    <script src="/static/JS/firebase.js"></script>
-
+    <!-- js -->
+    <script src="/static/JS/config.js"></script>
+    <script src="/static/JS/base.js"></script>
     {% block addJS %}
     {% endblock addJS %}
 
-    <!-- ナビバー -->
+    <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="/">音ゲーム</a>
+        <ul class="right hide-on-med-and-down">
+            <button class="btn btn-danger mb-2" onclick="logout();">ログアウト</button>
+        </ul>
     </nav>
+
     <!-- コンテンツ -->
     <div class="container">
         {% block content %}

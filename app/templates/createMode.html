@@ -1,3 +1,58 @@
-<p>ここにビデオ</p>
-<video src="../rsc/movies/NiziU(니쥬) Debut Single『Step and a step』Performance Video.mp4" controls>
-</video>
+{% extends 'base.html'%}
+
+{% block content %}
+<h1>クリエイトモード</h1>
+<ul>
+    <li>タイトル：{{ title }}</li>
+    <li>リンク：<a href="{{ url }}" target="blank">{{ url }}</a></li>
+    <li>保存先：{{ path }}</li>
+</ul>
+<p>確認したら下の再生ボタンを押してください。</p>
+
+<!-- ここにビデオが表示 -->
+<div id="ytplayer"></div>
+
+<!-- ゲームコントローラー -->
+<img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
+<img src="/static/images/taiko.png" width="100px" height="100px" onclick="saveDB();" />
+<img src="/static/images/taiko.png" width="100px" height="100px" onclick="saveDB2();" />
+
+<!-- error:保存したビデオでプレイする場合 
+<form action="/offlineMode" method="POST" enctype="multipart/form-data" class="form-inline">
+    <button type="submit" class="btn btn-primary mb-2">オフラインでplay</button>
+</form> -->
+<script src="/static/JS/createMode.js"></script>
+<script>
+    // youtubeidの取得
+    function getId() {
+        var url = "{{ url }}";
+        var videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+        if (videoid != null) {
+            // console.log("video id = ", videoid[1]);
+            videoId = videoid[1]
+        } else {
+            console.log("The youtube url is not valid.");
+        }
+    };
+
+    // 関数呼び出し、id更新
+    var videoId;
+    getId();
+
+    // iframeの作成
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // iframeの設定
+    var player;
+    function onYouTubePlayerAPIReady() {
+        player = new YT.Player('ytplayer', {
+            height: '360',
+            width: '640',
+            videoId: videoId,
+        });
+    }
+</script>
+{% endblock content %}

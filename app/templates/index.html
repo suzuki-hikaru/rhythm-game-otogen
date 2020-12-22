@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html'%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>おとげー</title>
-</head>
-
-<body>
-    <a class="navbar-brand" href="/login">ログイン</a>
-    <a class="navbar-brand" href="/createMode">クリエイトモード</a>
-    <a class="navbar-brand" href="/playMode">プレイモード</a>
-    <a class="navbar-brand" href="/test">テスト</a>
-</body>
-
-</html>
+{% block content %}
+<a class="navbar-brand" href="/login">ログイン</a>
+<a class="navbar-brand" href="/selectMode">モードセレクト</a>
+{% endblock content %}

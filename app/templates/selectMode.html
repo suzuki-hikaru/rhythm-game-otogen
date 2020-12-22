@@ -1,15 +1,10 @@
 {% extends 'base.html'%}
-
-{% block addJS %}
-<script src="/static/JS/test.js"></script>
-{% endblock addJS %}
-
 {% block content %}
 <div class="row">
     <!-- main -->
-    <div class="col-8">
+    <div class="col-4">
         <h2>プレイモード</h2>
-        <form action="/playConfirm" method="POST" enctype="multipart/form-data" class="form-inline">
+        <form action="/playMode" method="POST" enctype="multipart/form-data" class="form-inline">
             <label class="sr-only" for="inlineFormInputName2">YoutubeのURL</label>
             <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="name"
                 placeholder="https://www.youtube.com/watch?v=○○○○○○">
@@ -20,7 +15,7 @@
     <!-- sub -->
     <div class="col-4">
         <h2>クリエイトモード</h2>
-        <form action="/createConfirm" method="POST" enctype="multipart/form-data" class="form-inline">
+        <form action="/createMode" method="POST" enctype="multipart/form-data" class="form-inline">
             <label class="sr-only" for="inlineFormInputName2">YoutubeのURL</label>
             <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="name"
                 placeholder="https://www.youtube.com/watch?v=○○○○○○">
@@ -28,5 +23,10 @@
         </form>
     </div>
     <!-- endsub -->
+    <!-- inform -->
+    <div class="col-4">
+        <h2>{{ inform }}</h2>
+    </div>
+    <!-- endinform -->
 </div>
 {% endblock content %}
