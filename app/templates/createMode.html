@@ -21,36 +21,12 @@
 <button class="btn btn-danger mb-2" onclick="saveDB();">クリエイトデータを保存</button>
 
 <!-- error: 別ファイルでのJSの扱い -->
+{% endblock content %}
+
+{% block addJS %}
+<script src="/static/JS/createMode.js"></script>
 
 <script>
-    let count = 0;
-    let countupVal;
-    countsToFirebase = [];
-
-    let countup = function () {
-        count++;
-        console.log(count);
-    };
-
-    function startGame() {
-        player.playVideo();
-        count = 0; //カウントの初期化
-        countupVal = setInterval('countup();', 250); //0.25秒毎にcountup()を呼び出し
-    };
-
-    function stopGame() {
-        player.stopVideo();
-        clearInterval(countupVal);
-    };
-
-    function appendCount() {
-        countsToFirebase.push(count);
-        console.log("どん！　" + count);
-    };
-
-
-
-
     function saveDB() {
         clearInterval(countupVal);
         var result = prompt('保存するファイル名を入力してください');
@@ -82,7 +58,6 @@
             url: "{{ url }}",
             countTimes: countsToFirebase,
         });
-
         window.alert("データベースに送信しました")
     };
 
@@ -118,4 +93,4 @@
         });
     }
 </script>
-{% endblock content %}
+{% endblock addJS %}
