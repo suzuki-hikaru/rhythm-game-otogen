@@ -1,4 +1,5 @@
 {% extends 'base.html'%}
+
 {% block content %}
 <div class="row">
     <!-- main -->
@@ -26,7 +27,41 @@
     <!-- inform -->
     <div class="col-4">
         <h2>{{ inform }}</h2>
+        <button type="submit" onclick="getData();" class="btn btn-primary mb-2">get!</button>
+
+        <div id="test"></div>
     </div>
     <!-- endinform -->
 </div>
 {% endblock content %}
+
+{% block addJS %}
+<script>
+    function getData() {
+        // firebaseの設定
+        var userId = firebase.auth().currentUser.uid;
+        //取得するデータ範囲の設定
+        firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
+            var data = snapshot.val();
+            for (key in data) {
+                var oneCountTime = data[key];
+                console.log("firebase:" + oneCountTime.countTimes);
+                document.getElementById("test").innerHTML += '<div>' + oneCountTime.title + '：' + oneCountTime.countTimes + '</div>';
+            }
+
+            ////////　メモ書き　///////////////////////////////////////////////////////////////
+            //データのうちtimesを取得する.'Anonymous'は入力されていないデータ又は匿名データ。
+            // var data = (snapshot.val() && snapshot.val().times) || 'Anonymous'; 
+            // リファレンスの全体
+            // var data = snapshot.val();
+            //ユーザID
+            // var data = snapshot.key;
+            //keyの名前
+            // var data = snapshot.child('countTimes').key;
+            // setだけの時
+            // var data = snapshot.child('countTimes').val();
+            //////////////////////////////////////////////////////////////////////////////////
+        });
+    };
+</script>
+{% endblock addJS %}

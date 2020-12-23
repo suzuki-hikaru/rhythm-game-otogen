@@ -48,22 +48,41 @@
         console.log("どん！　" + count);
     };
 
+
+
+
     function saveDB() {
         clearInterval(countupVal);
         var result = prompt('保存するファイル名を入力してください');
         var title;
+        var timestamp;
+
         if (result) {
             title = result;
+            var now = new Date();
+            var Year = now.getFullYear();
+            var Month = now.getMonth() + 1;
+            var Day = now.getDate();
+            var Hour = now.getHours();
+            var Min = now.getMinutes();
+            var Sec = now.getSeconds();
+            timestamp = Year + "/" + Month + "/" + Day + "/" + Hour + ":" + Min + ":" + Sec;
         }
         ////////// add: else処理//////////
         const user = firebase.auth().currentUser;
+        const userId = user.uid;
         const userName = user.displayName;
-        firebase.database().ref('records/' + user.uid).push().set({
+        //これは一意↓
+        firebase.database().ref('users/' + user.uid).push().set({
+            // これは一意にならない↓
+            // firebase.database().ref('users/' + userId).set({
             title: title,
+            timestamp: timestamp,
             userName: userName,
             url: "{{ url }}",
             countTimes: countsToFirebase,
         });
+
         window.alert("データベースに送信しました")
     };
 
