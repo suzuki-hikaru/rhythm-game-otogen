@@ -1,7 +1,7 @@
 リポジトリのクローン
 git clone git@github.com:user/111.git
 
-インストールに必要な情報の更新
+sudoの更新
 sudo apt update
 sudo apt upgrade
 
@@ -9,13 +9,15 @@ sudo apt install python-pip
 pip install --upgrade pip
 sudo apt install python3-venv
 
-vエンブ
+ブイエンブ
 python3 -m venv my_venv
 . my_venv/bin/activate
 
+---管理用----------------------
 pip list
 pip freeze
 pip freeze > requirements.txt
+-------------------------------
 
 pip install -r requirements.txt
 

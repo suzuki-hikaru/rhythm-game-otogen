@@ -15,14 +15,19 @@
 <!-- ゲームコントローラー -->
 <img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
 <img src="/static/images/pause.jpg" width="100px" height="100px" onclick="stopGame();" />
-<img src="/static/images/taiko.png" width="100px" height="100px" onclick="saveDB();" />
+<img src="/static/images/taiko.png" width="100px" height="100px" onclick="appendCount();" />
+
+<!-- 保存 -->
+<button class="btn btn-danger mb-2" onclick="saveDB();">クリエイトデータを保存</button>
 
 <!-- error: 別ファイルでのJSの扱い -->
 
 <script>
-    var count = 0;
+    let count = 0;
+    let countupVal;
+    countsToFirebase = [];
 
-    function countup() {
+    let countup = function () {
         count++;
         console.log(count);
     };
@@ -30,24 +35,36 @@
     function startGame() {
         player.playVideo();
         count = 0; //カウントの初期化
-        timerID = setInterval('countup();', 1000); //1秒毎にcountup()を呼び出し
+        countupVal = setInterval('countup();', 250); //0.25秒毎にcountup()を呼び出し
     };
 
     function stopGame() {
         player.stopVideo();
+        clearInterval(countupVal);
+    };
+
+    function appendCount() {
+        countsToFirebase.push(count);
+        console.log("どん！　" + count);
     };
 
     function saveDB() {
+        clearInterval(countupVal);
+        var result = prompt('保存するファイル名を入力してください');
+        var title;
+        if (result) {
+            title = result;
+        }
+        ////////// add: else処理//////////
         const user = firebase.auth().currentUser;
         const userName = user.displayName;
-        const songURL = "{{ url }}";
-        const countToFirebase = count;
         firebase.database().ref('records/' + user.uid).push().set({
-            name: userName,
-            url: songURL,
-            time: countToFirebase,
+            title: title,
+            userName: userName,
+            url: "{{ url }}",
+            countTimes: countsToFirebase,
         });
-        console.log("どん！　" + countToFirebase);
+        window.alert("データベースに送信しました")
     };
 
     // youtubeidの取得
