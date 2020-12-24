@@ -2,6 +2,7 @@
 let count = 0;
 var i = 0;
 let countupVal;
+var score = 0;
 
 let countup = function () {
     count++;
@@ -30,5 +31,6 @@ function stopGame() {
 };
 
 function appendCount() {
-    console.log("ポン！　" + count);
+    var match = searchedArray.indexOf(count);
+    console.log("ポン！　" + match);
 };
