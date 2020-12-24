@@ -38,7 +38,7 @@ def post_create():
     return render_template("createMode.html", url = url_name, title = video_name, path = './rsc/movies/' + video_name + '.mp4')
 
 """""""""""""""""""""""""""
-###コーディング予定###
+###コーディング中###
 """""""""""""""""""""""""""
 @app.route("/playMode", methods=['GET'])
 def get_play():
@@ -47,4 +47,5 @@ def get_play():
 
 @app.route("/playMode", methods=['POST'])
 def post_play():
-    return render_template("playMode.html", inform = error)
+    url_name = request.form['name']
+    return render_template("playMode.html", url = url_name,)

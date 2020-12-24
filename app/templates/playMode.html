@@ -4,12 +4,62 @@
 <p>あなたが入力したURL</p>
 <ul>
     <li>{{ url }}</li>
-    <li>{{ title }}</li>
-    <li>{{ path }}</li>
 </ul>
 <p>確認したら下のボタンを押してください</p>
 
-<form action="/playMode" method="POST" enctype="multipart/form-data" class="form-inline">
-    <button type="submit" class="btn btn-primary mb-2">始める</button>
-</form>
+<!-- <form action="/playMode" method="POST" enctype="multipart/form-data" class="form-inline"> -->
+<button type="submit" class="btn btn-primary mb-2" onclick="getSearchedData();">検索データの取り出し</button>
+<button type="submit" class="btn btn-primary mb-2" onclick="startGame();">スタートゲーム</button>
+<button type="submit" class="btn btn-primary mb-2" onclick="test();">test</button>
+<!-- </form> -->
 {% endblock content %}
+
+{% block addJS %}
+<script>
+    var searchedArray = [];
+    function getSearchedData() {
+        //取得するデータ範囲の設定
+        firebase.database().ref('/users/').once('value').then(function (snapshot) {
+            var allData = snapshot.val();
+            //繰り返してタイトルを取得。多分推奨のやり方ではない
+            for (oneUserId in allData) {
+                var oneUser = allData[oneUserId];
+                for (oneDocKey in oneUser) {
+                    if (allData[oneUserId][oneDocKey].url == "{{ url }}") {
+                        searchedArray.push(allData[oneUserId][oneDocKey].countTimes);
+                    };
+                };
+            };
+            // 確認
+            console.log(searchedArray);
+        });
+    };
+
+    /////////　ここからカウント処理/////////
+    let count = 0;
+    var i = 0;
+    let countupVal;
+
+    let countup = function () {
+        count++;
+        if (count == searchedArray[0][i]) {
+            i = i + 1;
+            console.log("どん！　" + count);
+        } else {
+            console.log(count);
+        };
+    };
+
+    function startGame() {
+        // player.playVideo();
+        count = 0; //カウントの初期化
+        countupVal = setInterval('countup();', 250); //0.25秒毎にcountup()を呼び出し
+    };
+
+    function test() {
+        console.log(searchedArray[0][0]);
+    };
+
+
+</script>
+{% endblock addJS %}
