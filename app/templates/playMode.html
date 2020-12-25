@@ -14,6 +14,8 @@
 <img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
 <img src="/static/images/pause.jpg" width="100px" height="100px" onclick="stopGame();" />
 <img src="/static/images/taiko.png" width="100px" height="100px" onclick="appendCount();" />
+<img src="/static/images/taiko.png" width="100px" height="100px" onclick="aaa();" />
+
 
 {% endblock content %}
 
@@ -24,6 +26,20 @@
     window.onload = function () {
         getSearchedData();
     };
+    test = [1, 3, 5, 6, 7, 8];
+
+    /////////////////////
+    function aaa() {
+        var result = test.indexOf(1);
+        console.log("検索の結果" + result);
+        if (result == -1) {
+            console.log("False")
+        } else {
+            console.log("True!")
+        };
+    };
+    /////////////////////
+
 
     /////////// 検索処理　//////////////
     var searchedArray = [];
