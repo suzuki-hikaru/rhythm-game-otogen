@@ -13,7 +13,7 @@ countsToFirebase = [];
 function startGame() {
     player.playVideo();
     count = 0;
-    countupVal = setInterval('countup();', 100);
+    countupVal = setInterval('countup();', 1000);
 };
 
 function stopGame() {

@@ -21,7 +21,7 @@ function startGame() {
     player.playVideo();
     count = 0;
     i = 0;
-    countupVal = setInterval('countup();', 100);
+    countupVal = setInterval('countup();', 1000);
     //// error: 二回目を押すとカウントが早くなる ///////
 };
 
@@ -31,6 +31,10 @@ function stopGame() {
 };
 
 function appendCount() {
-    var match = searchedArray.indexOf(count);
-    console.log("ポン！　" + match);
+    var result = searchedArray[0].indexOf(count);
+    if (result == -1) {
+        console.log("ポン！　×　" + count);
+    } else {
+        console.log("ポン！　○　" + count);
+    };
 };
