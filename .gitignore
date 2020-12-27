@@ -1,6 +1,6 @@
 /my_venv/
 /app/__pycache__/
-/app/python/config/
+/app/python/config.json
 /app/static/images/
 /app/static/movies/
 /app/static/audio/
