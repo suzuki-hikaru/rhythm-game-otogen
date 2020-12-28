@@ -1,27 +1,50 @@
 {% extends 'base.html'%}
 {% block content %}
-<h1>プレイモードの確認</h1>
-<p>あなたが入力したURL</p>
-<ul>
-    <li>{{ url }}</li>
-</ul>
-<p>確認したら下のボタンを押してください</p>
+<div class="row">
+    <div class="col-8">
+        <h1>プレイモードの確認</h1>
+        <p>あなたが入力したURL</p>
+        <ul>
+            <li>{{ url }}</li>
+        </ul>
+        <p>確認したら下のボタンを押してください</p>
 
-<!-- ここにビデオが表示 -->
-<div id="ytplayer"></div>
+        <!-- ここにビデオが表示 -->
+        <div id="ytplayer"></div>
 
-<!-- ゲームコントローラー -->
-<div>
-    <img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
-    <img src="/static/images/pause.jpg" width="100px" height="100px" onclick="stopGame();" />
-    <img src="/static/images/taiko.png" width="100px" height="100px" onclick="appendCount();" />
+        <!-- ゲームコントローラー -->
+        <div>
+            <img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
+            <img src="/static/images/pause.jpg" width="100px" height="100px" onclick="stopGame();" />
+            <img src="/static/images/taiko.png" width="100px" height="100px" onclick="appendCount();" />
+        </div>
+    </div>
+    <div class="col-4">
+        <!-- 画面表示 -->
+        <h2>正誤判定</h2>
+        <div id="sumRhythm">
+            <p>総rhythm数</p>
+        </div>
+        <div id="judge">
+            <p>ポン！</p>
+        </div>
+        <div id="rate">
+            <p>一致率：　0.00%</p>
+        </div>
+        <div id="truescore">
+            <p>○： 0</p>
+        </div>
+        <div id="falsescore">
+            <p>×： 0</p>
+        </div>
+        <img id="pic" style="display: none;" src="/static/images/taiko.png" width="50px" height="50px" />
+    </div>
 </div>
 
 {% endblock content %}
 
 {% block addJS %}
 <script src="/static/JS/playMode.js"></script>
-<script src="/static/JS/playUi.js"></script>
 
 <script>
     window.onload = function () {
@@ -45,6 +68,7 @@
             };
             // 確認
             console.log(searchedArray);
+            document.getElementById("sumRhythm").innerHTML = "<p>この曲の総rhythm数：" + searchedArray[0].length + "</p>";
         });
     };
 
