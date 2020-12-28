@@ -35,7 +35,7 @@ def post_create():
     video_name = yt.title
     video = yt.streams.filter(subtype='mp4').first()
     video.download('./app/static/movies/')
-    return render_template("createMode.html", url = url_name, title = video_name, path = './app/static/movies/' + video_name + '.mp4')
+    return render_template("createMode.html", url = url_name, yt_title = video_name, path = './app/static/movies/' + video_name + '.mp4')
 
 """""""""""""""""""""""""""
 ###コーディング中###

@@ -25,7 +25,7 @@ function startGame() {
     document.getElementById("rate").innerHTML = "<p>一致率：　0/" + searchedArray[0].length + "</p>";
     count = 0;
     i = 0;
-    countupVal = setInterval('countup();', 1000);
+    countupVal = setInterval('countup();', 100);
     //// error: 二回目を押すとカウントが早くなる ///////
 };
 

@@ -13,7 +13,7 @@ countsToFirebase = [];
 function startGame() {
     player.playVideo();
     count = 0;
-    countupVal = setInterval('countup();', 1000);
+    countupVal = setInterval('countup();', 100);
 };
 
 function stopGame() {
@@ -26,6 +26,10 @@ function stopGame() {
 };
 
 function appendCount() {
-    countsToFirebase.push(count);
+    var apResult = pushArray.indexOf(count);
+    if (apResult == -1) {
+        countsToFirebase.push(count);
+    }
     console.log("どん！　" + count);
+
 };

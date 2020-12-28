@@ -4,19 +4,9 @@
 <div class="row">
     <!-- main -->
     <div class="col-4">
-        <h2>プレイモード</h2>
-        <form action="/playMode" method="POST" enctype="multipart/form-data" class="form-inline">
-            <label class="sr-only" for="inlineFormInputName2">YoutubeのURL</label>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="name"
-                placeholder="https://www.youtube.com/watch?v=○○○○○○">
-            <button type="submit" class="btn btn-primary mb-2">検索</button>
-        </form>
-        <form action="/createMode" method="POST" enctype="multipart/form-data" class="form-inline">
-            <label class="sr-only" for="inlineFormInputName2">title名</label>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="name"
-                placeholder="https://www.youtube.com/watch?v=○○○○○○">
-            <button type="submit" class="btn btn-primary mb-2">検索</button>
-        </form>
+        <h2>人気ランキング</h2>
+        <ul id="list">
+        </ul>
     </div>
     <!-- endmain -->
     <!-- sub -->
@@ -32,6 +22,20 @@
     <!-- endsub -->
     <!-- inform -->
     <div class="col-4">
+        <h2>プレイモード</h2>
+        <form action="/playMode" method="POST" enctype="multipart/form-data" class="form-inline">
+            <label class="sr-only" for="inlineFormInputName2">YoutubeのURL</label>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="name"
+                placeholder="https://www.youtube.com/watch?v=○○○○○○">
+            <button type="submit" class="btn btn-primary mb-2">検索</button>
+        </form>
+        <form action="/createMode" method="POST" enctype="multipart/form-data" class="form-inline">
+            <label class="sr-only" for="inlineFormInputName2">title名</label>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" name="name"
+                placeholder="https://www.youtube.com/watch?v=○○○○○○">
+            <button type="submit" class="btn btn-primary mb-2">検索</button>
+        </form>
+
         <h2>{{ inform }}</h2>
         <button type="submit" onclick="getData();" class="btn btn-primary mb-2">get!</button>
 
@@ -54,6 +58,8 @@
                 var oneUser = allData[oneUserId];
                 for (oneDocKey in oneUser) {
                     console.log("docKey:" + oneDocKey);
+                    const li = '<li>' + "docKey:" + oneDocKey + '</li>';
+                    document.getElementById('list').insertAdjacentHTML('beforeend', li);
                     console.log("forTitle:" + allData[oneUserId][oneDocKey].title);
                     console.log("forcountTime:" + allData[oneUserId][oneDocKey].countTimes);
                 };
