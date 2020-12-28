@@ -11,15 +11,17 @@
 <div id="ytplayer"></div>
 
 <!-- ゲームコントローラー -->
-<img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
-<img src="/static/images/pause.jpg" width="100px" height="100px" onclick="stopGame();" />
-<img src="/static/images/taiko.png" width="100px" height="100px" onclick="appendCount();" />
-<img src="/static/images/taiko.png" width="100px" height="100px" onclick="gameView();" />
+<div>
+    <img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
+    <img src="/static/images/pause.jpg" width="100px" height="100px" onclick="stopGame();" />
+    <img src="/static/images/taiko.png" width="100px" height="100px" onclick="appendCount();" />
+</div>
 
 {% endblock content %}
 
 {% block addJS %}
 <script src="/static/JS/playMode.js"></script>
+<script src="/static/JS/playUi.js"></script>
 
 <script>
     window.onload = function () {

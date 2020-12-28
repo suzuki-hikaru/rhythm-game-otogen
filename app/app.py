@@ -49,3 +49,7 @@ def get_play():
 def post_play():
     url_name = request.form['name']
     return render_template("playMode.html", url = url_name,)
+
+@app.route("/test", methods=['GET','POST'])
+def test():
+    return render_template("testui.html",)
