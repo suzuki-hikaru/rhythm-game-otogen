@@ -26,10 +26,11 @@ function stopGame() {
 };
 
 function appendCount() {
-    var apResult = pushArray.indexOf(count);
-    if (apResult == -1) {
-        countsToFirebase.push(count);
-    }
+    //error: 同じ要素が複数含まれるとplayできない。
+    // var apResult = pushArray.indexOf(count);
+    // if (apResult == -1) {
+    countsToFirebase.push(count);
+    // }
     console.log("どん！　" + count);
 
 };

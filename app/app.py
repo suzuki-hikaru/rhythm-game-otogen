@@ -50,6 +50,12 @@ def post_play():
     url_name = request.form['name']
     return render_template("playMode.html", url = url_name,)
 
+
+@app.route("/docPost", methods=['POST'])
+def post_doc():
+    doc_name = request.form['name']
+    return render_template("docPlayMode.html", doc_name = doc_name,)
+
 @app.route("/test", methods=['GET','POST'])
 def test():
     return render_template("testui.html",)

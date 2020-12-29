@@ -1,0 +1,132 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="row">
+    <div class="col-8">
+        <h1>プレイモードの確認</h1>
+        <p>あなたが入力したdoc_name</p>
+        <ul>
+            <li>doc_name：{{ doc_name }}</li>
+            <li id="confirm_yt_title"></li>
+            <li id="confirm_creater"></li>
+        </ul>
+        <p>確認したら下のボタンを押してください</p>
+
+        <!-- ここにビデオが表示 -->
+        <div id="ytplayer">aaa</div>
+
+        <!-- ゲームコントローラー -->
+        <div>
+            <img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
+            <img src="/static/images/pause.jpg" width="100px" height="100px" onclick="stopGame();" />
+            <img src="/static/images/taiko.png" width="100px" height="100px" onclick="appendCount();" />
+        </div>
+    </div>
+    <div class="col-4">
+        <!-- 画面表示 -->
+        <h2>正誤判定</h2>
+        <div id="sumRhythm">
+            <p>総rhythm数</p>
+        </div>
+        <div id="judge">
+            <p>ポン！</p>
+        </div>
+        <div id="rate">
+            <p>一致率：　0.00%</p>
+        </div>
+        <div id="truescore">
+            <p>○： 0</p>
+        </div>
+        <div id="falsescore">
+            <p>×： 0</p>
+        </div>
+        <img id="pic" style="display: none;" src="/static/images/taiko.png" width="50px" height="50px" />
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block addJS %}
+<script src="/static/JS/playMode.js"></script>
+
+<script>
+    window.onload = function () {
+        // getSearchedData();
+
+        const processAll = async function () {
+            await getSearchedData();
+            await getId();
+            await onYouTubePlayerAPIReady();
+        }
+
+        processAll();
+    };
+
+    /////////// 検索処理　//////////////
+    var searchedArray = [];
+    var yt_url;
+
+    const getSearchedData = async function () {
+        //取得するデータ範囲の設定
+        await firebase.database().ref('/users/').once('value').then(function (snapshot) {
+            var allData = snapshot.val();
+            //繰り返してタイトルを取得。多分推奨のやり方ではない
+            for (oneUserId in allData) {
+                var oneUser = allData[oneUserId];
+                for (oneDocKey in oneUser) {
+                    if (oneDocKey == "{{ doc_name }}") {
+                        searchedArray.push(allData[oneUserId][oneDocKey].countTimes);
+                        yt_url = allData[oneUserId][oneDocKey].url;
+                        userName = allData[oneUserId][oneDocKey].userName;
+                    };
+                };
+            };
+            // 確認
+            console.log(searchedArray);
+            // 挿入
+            document.getElementById("sumRhythm").innerHTML = "<p>この曲の総rhythm数：" + searchedArray[0].length + "</p>";
+            document.getElementById("confirm_yt_title").innerHTML = `<li><a href="${yt_url}">この曲のタイトル：${allData[oneUserId][oneDocKey].yt_title}</a></li>`;
+            document.getElementById("confirm_creater").innerHTML = `<li>作曲者：${userName}</li>`;
+        });
+    };
+
+    ////////////　youtube /////////////
+
+
+    // youtubeidの取得
+    const getId = async function () {
+        var url = yt_url;
+        // var url = "https://www.youtube.com/watch?v=3ymwOvzhwHs";
+        var videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+
+        if (videoid != null) {
+            console.log("video id = ", videoid[1]);
+            videoId = videoid[1]
+        } else {
+            console.log("The youtube url is not valid.");
+        }
+    };
+
+
+    // 関数呼び出し、id更新
+    var videoId;
+    // getId();
+
+    // iframeの作成
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // iframeの設定
+    var player;
+
+    const onYouTubePlayerAPIReady = function () {
+        player = new YT.Player('ytplayer', {
+            height: '360',
+            width: '640',
+            videoId: videoId,
+        });
+    }
+
+</script>
+{% endblock addJS %}
