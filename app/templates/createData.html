@@ -1,0 +1,54 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<h1>ESPモード</h1>
+<p>必要情報を入力してください。</p>
+
+<input type="text" class="form-control mb-2 mr-sm-2" id="title" name="name" placeholder="※タイトル" required><br>
+<input type="text" class="form-control mb-2 mr-sm-2" id="yt_title" name="name" placeholder="※Youtubeのタイトル" required><br>
+<input type="text" class="form-control mb-2 mr-sm-2" id="url" name="name" placeholder="※YoutubeのURL" required><br>
+<button type="submit" class="btn btn-success mb-2" onclick="saveDB();">登録</button>
+
+<!-- error: 別ファイルでのJSの扱い -->
+{% endblock content %}
+
+{% block addJS %}
+<script>
+    function saveDB() {
+        //入力情報の取得
+        var title = document.getElementById("title").value;
+        var yt_title = document.getElementById("yt_title").value;
+        var url = document.getElementById("url").value;
+        // var countTimes = document.getElementById("countTimes").value;
+        //時間
+        var now = new Date();
+        var Year = now.getFullYear();
+        var Month = now.getMonth() + 1;
+        var Day = now.getDate();
+        var Hour = now.getHours();
+        var Min = now.getMinutes();
+        var Sec = now.getSeconds();
+        var timestamp = Year + "/" + Month + "/" + Day + "/" + Hour + ":" + Min + ":" + Sec;
+        ////////// add: else処理//////////
+        const user = firebase.auth().currentUser;
+        const userId = user.uid;
+        const userName = user.displayName;
+
+        //これは一意↓
+        firebase.database().ref('users/' + user.uid).push().set({
+            // これは一意にならない↓
+            // firebase.database().ref('users/' + userId).set({
+            yt_title: yt_title,
+            title: title,
+            timestamp: timestamp,
+            userName: userName,
+            url: url,
+            // countTimes: countTimes,
+            countTimes: "{{ countTimes }}",
+            good: 0,
+            play: 0,
+        });
+        window.alert("ESP32で作成したrhythmをデータベースに送信しました")
+    };
+</script>
+{% endblock addJS %}

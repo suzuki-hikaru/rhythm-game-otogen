@@ -4,144 +4,63 @@
 <div class="row">
     <!-- main -->
     <div class="col-7">
-        <h2>人気ランキング</h2>
-        <table id="table" border="2">
-
+        <h2>人気ランキング
+            <label onclick="getData();">🔄</label>
+        </h2>
+        <table id="table" border="2" max-width="500px">
         </table>
     </div>
     <!-- endmain -->
     <!-- sub -->
     <div class="col-4">
-        <h2>プレイモード</h2>
+        <h1>{{ inform }}</h1>
+        <h2>プレイ</h2>
         <form action="/docPost" method="POST" enctype="multipart/form-data" class="form-inline">
-            <label class="sr-only" for="inlineFormInputName2">doc名</label>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="play" name="name" placeholder="doc名">
-            <button type="submit" class="btn btn-primary mb-2">検索</button>
+            <label class="sr-only" for="inlineFormInputName2">docKey</label>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="play" name="name" placeholder="docKey">
+            <button type="submit" class="btn btn-primary mb-2">GO!</button>
         </form>
         <div id="info">
-            <p>jumpボタンを押して,docKeyを挿入してください。</p>
+            <p>演奏希望曲のjumpボタンを押してください。</p>
         </div>
 
-        <h2>クリエイトモード</h2>
+        <h2>クリエイト</h2>
         <form action="/createMode" method="POST" enctype="multipart/form-data" class="form-inline">
             <label class="sr-only" for="inlineFormInputName2">YoutubeのURL</label>
             <input type="text" class="form-control mb-2 mr-sm-2" id="create" name="name"
                 placeholder="https://www.youtube.com/watch?v=○○○○○○">
-            <button type="submit" class="btn btn-primary mb-2">検索</button>
+            <button type="submit" class="btn btn-primary mb-2">GO!</button>
         </form>
 
-        <h2>{{ inform }}</h2>
+        <br>
 
         <h2>曲探し</h2>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="searchTitle" name="title" placeholder="キーワード">
+        <button type="submit" onclick="getTitleData();" class="btn btn-primary mb-2">検索</button>
+        <br>
         <input type="text" class="form-control mb-2 mr-sm-2" id="searchURL" name="name"
             placeholder="https://www.youtube.com/watch?v=○○○○○○">
         <button type="submit" onclick="getURLData();" class="btn btn-primary mb-2">検索</button>
 
-        <input type="text" class="form-control mb-2 mr-sm-2" id="searchTitle" name="title"
-            placeholder="キーワードをここに入力してください">
-        <button type="submit" onclick="getTitleData();" class="btn btn-primary mb-2">検索</button>
+        <br><br>
 
-        <button type="submit" onclick="getData();" class="btn btn-primary mb-2">Allget!</button>
+        <h2>ESP32</h2>
+        <form action="/createData" method="POST" enctype="multipart/form-data" class="form-inline">
+            <label class="sr-only" for="inlineFormInputName2">spreadsheetのURL</label>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="esp" name="name" placeholder="spreadsheet id">
+            <button type="submit" class="btn btn-success mb-2">検索</button>
+        </form>
     </div>
+
     <!-- endsub -->
 </div>
 {% endblock content %}
 
 {% block addJS %}
-<!-- 一時凍結↓　自分が入力したデータの取り出し -->
-<!-- <script src="/static/JS/selectMode.js"></script> -->
+<script src="/static/JS/selectMode.js"></script>
 <script>
     window.onload = function () {
         getData();
     };
-
-    function getData() {
-        // inform: テーブルの削除　＊粗雑
-        var Table = document.getElementById("table");
-        Table.innerHTML = "";
-
-        //取得するデータ範囲の設定
-        firebase.database().ref('/users/').once('value').then(function (snapshot) {
-            var allData = snapshot.val();
-            const th = '<tr id="th">\n<th>docKey</th><th>yt_title</th><th>jump</th>\n</tr>';
-            document.getElementById('table').insertAdjacentHTML('afterbegin', th);
-            //繰り返してタイトルを取得。多分推奨のやり方ではない
-            for (oneUserId in allData) {
-                var oneUser = allData[oneUserId];
-                for (oneDocKey in oneUser) {
-                    const tr = `<tr>\n<form action="/playMode method="POST" enctype="multipart/form-data"><td>${oneDocKey}</td><td>${allData[oneUserId][oneDocKey].title}</td><td><button onclick="jump('${oneDocKey}');">jump</button></td></form>\n</tr>`;
-                    document.getElementById('th').insertAdjacentHTML('afterend', tr);
-                };
-            };
-        });
-    };
-
-    function getTitleData() {
-        // inform: テーブルの削除　＊粗雑
-        const Table = document.getElementById("table");
-        Table.innerHTML = "";
-        // formからの取得データ
-        const titledata = document.getElementById("searchTitle").value;
-        //取得するデータ範囲の設定
-        firebase.database().ref('/users/').once('value').then(function (snapshot) {
-            var allData = snapshot.val();
-
-            const th = '<tr id="th">\n<th>docKey</th><th>yt_title</th><th>jump</th>\n</tr>';
-            document.getElementById('table').insertAdjacentHTML('afterbegin', th);
-
-            //繰り返してタイトルを取得。多分推奨のやり方ではない
-            for (oneUserId in allData) {
-                var oneUser = allData[oneUserId];
-                for (oneDocKey in oneUser) {
-                    if (allData[oneUserId][oneDocKey].title.indexOf(titledata) > -1 || allData[oneUserId][oneDocKey].yt_title.indexOf(titledata) > -1) {
-                        // 部分一致のときの処理
-                        const tr = `<tr>\n<form action="/playMode method="POST" enctype="multipart/form-data"><td>${oneDocKey}</td><td>${allData[oneUserId][oneDocKey].title}</td><td><button onclick="jump('${oneDocKey}');">jump</button></td></form>\n</tr>`;
-                        document.getElementById('th').insertAdjacentHTML('afterend', tr);
-                        console.log("forcountTime:" + allData[oneUserId][oneDocKey].countTimes);
-                    }
-                    // if (titledata == allData[oneUserId][oneDocKey].title) {
-                    // }
-                };
-            };
-        });
-    };
-
-    function getURLData() {
-        // inform: テーブルの削除　＊粗雑
-        const Table = document.getElementById("table");
-        Table.innerHTML = "";
-
-        // formからの取得データ
-        const urldata = document.getElementById("searchURL").value;
-        //取得するデータ範囲の設定
-        firebase.database().ref('/users/').once('value').then(function (snapshot) {
-            var allData = snapshot.val();
-            const th = '<tr id="th">\n<th>docKey</th><th>title</th><th>jump</th>\n</tr>';
-            document.getElementById('table').insertAdjacentHTML('afterbegin', th);
-
-            //繰り返してタイトルを取得。多分推奨のやり方ではない
-            for (oneUserId in allData) {
-                var oneUser = allData[oneUserId];
-                for (oneDocKey in oneUser) {
-                    if (urldata == allData[oneUserId][oneDocKey].url) {
-                        const tr = `<tr>\n<form action="/playMode method="POST" enctype="multipart/form-data"><td>${oneDocKey}</td><td>${allData[oneUserId][oneDocKey].title}</td><td><button onclick="jump('${oneDocKey}');">jump</button></td></form>\n</tr>`;
-                        document.getElementById('th').insertAdjacentHTML('afterend', tr);
-                        console.log("forcountTime:" + allData[oneUserId][oneDocKey].countTimes);
-                    }
-                };
-            };
-        });
-    };
-
-
-    function jump(oneDocKey) {
-        // var jumpId = document.getElementById(oneDocKey).value;
-        // console.log(jumpId);
-        console.log(oneDocKey);
-        document.getElementById("play").value = oneDocKey;
-        document.getElementById("play").style.backgroundColor = "yellow";
-        document.getElementById("info").innerHTML = "<p>＊docが挿入されました。検索を押してください。</p>";
-
-    }
 </script>
 {% endblock addJS %}

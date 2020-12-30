@@ -5,10 +5,12 @@
         <h1>プレイモードの確認</h1>
         <p>あなたが入力したdoc_name</p>
         <ul>
-            <li>doc_name：{{ doc_name }}</li>
+            <li>{{ doc_name }}</li>
             <li id="confirm_yt_title"></li>
             <li id="confirm_creater"></li>
         </ul>
+        <div id="goodbutton"></div>
+
         <p>確認したら下のボタンを押してください</p>
 
         <!-- ここにビデオが表示 -->
@@ -50,15 +52,95 @@
 
 <script>
     window.onload = function () {
-        // getSearchedData();
-
         const processAll = async function () {
             await getSearchedData();
             await getId();
             await onYouTubePlayerAPIReady();
+            await addGood();
         }
 
         processAll();
+    };
+
+    async function addGood() {
+        const user = firebase.auth().currentUser;
+        const DK = "{{ doc_name }}";
+
+        //取得するデータ範囲の設定
+        firebase.database().ref('/users/').once('value').then(function (snapshot) {
+            var allData = snapshot.val();
+            for (oneUserId in allData) {
+                var oneUser = allData[oneUserId];
+                for (oneDocKey in oneUser) {
+                    if (oneDocKey == DK) {
+                        var yt_title = allData[oneUserId][oneDocKey].yt_title;
+                        var title = allData[oneUserId][oneDocKey].title;
+                        var timestamp = allData[oneUserId][oneDocKey].timestamp;
+                        var userName = allData[oneUserId][oneDocKey].userName;
+                        var url = allData[oneUserId][oneDocKey].url;
+                        var countTimes = allData[oneUserId][oneDocKey].countTimes;
+                        var play = allData[oneUserId][oneDocKey].play + 1;
+                        var goodUser = allData[oneUserId][oneDocKey].goodUser;
+                        var good = allData[oneUserId][oneDocKey].good;
+                        console.log(good);
+                        document.getElementById("goodbutton").innerHTML = `<button id="good" class="btn btn-danger mb-2" onclick="goodDB();">いいね：${good}</button>`
+
+                        firebase.database().ref('users/' + oneUserId + '/' + oneDocKey).set({
+                            good: good,
+                            goodUser: user.uid,
+                            yt_title: yt_title,
+                            title: title,
+                            timestamp: timestamp,
+                            userName: userName,
+                            url: url,
+                            countTimes: countTimes,
+                            play: play,
+                        });
+                    };
+                };
+            };
+        });
+    };
+
+    function goodDB() {
+        const user = firebase.auth().currentUser;
+        const DK = "{{ doc_name }}";
+        console.log(DK);
+
+        //取得するデータ範囲の設定
+        firebase.database().ref('/users/').once('value').then(function (snapshot) {
+            var allData = snapshot.val();
+            for (oneUserId in allData) {
+                var oneUser = allData[oneUserId];
+                for (oneDocKey in oneUser) {
+                    if (oneDocKey == DK) {
+                        var yt_title = allData[oneUserId][oneDocKey].yt_title;
+                        var title = allData[oneUserId][oneDocKey].title;
+                        var timestamp = allData[oneUserId][oneDocKey].timestamp;
+                        var userName = allData[oneUserId][oneDocKey].userName;
+                        var url = allData[oneUserId][oneDocKey].url;
+                        var countTimes = allData[oneUserId][oneDocKey].countTimes;
+                        var play = allData[oneUserId][oneDocKey].play;
+                        var goodUser = allData[oneUserId][oneDocKey].goodUser;
+                        var good = allData[oneUserId][oneDocKey].good + 1;
+                        console.log(good);
+                        document.getElementById("goodbutton").innerHTML = `<button id="good" class="btn btn-danger mb-2" onclick="goodDB();">いいね：${good}</button>`
+
+                        firebase.database().ref('users/' + oneUserId + '/' + oneDocKey).set({
+                            good: good,
+                            goodUser: user.uid,
+                            yt_title: yt_title,
+                            title: title,
+                            timestamp: timestamp,
+                            userName: userName,
+                            url: url,
+                            countTimes: countTimes,
+                            play: play,
+                        });
+                    };
+                };
+            };
+        });
     };
 
     /////////// 検索処理　//////////////
@@ -91,7 +173,6 @@
 
     ////////////　youtube /////////////
 
-
     // youtubeidの取得
     const getId = async function () {
         var url = yt_url;
@@ -105,7 +186,6 @@
             console.log("The youtube url is not valid.");
         }
     };
-
 
     // 関数呼び出し、id更新
     var videoId;

@@ -13,14 +13,14 @@
 <div id="ytplayer"></div>
 
 <!-- ゲームコントローラー -->
-<img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
-<img src="/static/images/pause.jpg" width="100px" height="100px" onclick="stopGame();" />
-<img src="/static/images/taiko.png" width="100px" height="100px" onclick="appendCount();" />
+<div>
+    <img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
+    <img src="/static/images/pause.jpg" width="100px" height="100px" onclick="stopGame();" />
+    <img src="/static/images/taiko.png" width="100px" height="100px" onclick="appendCount();" />
+    <!-- 保存 -->
+    <button class="btn btn-danger mb-2" onclick="saveDB();">クリエイトデータを保存</button>
+</div>
 
-<!-- 保存 -->
-<button class="btn btn-danger mb-2" onclick="saveDB();">クリエイトデータを保存</button>
-
-<!-- error: 別ファイルでのJSの扱い -->
 {% endblock content %}
 
 {% block addJS %}
@@ -48,6 +48,7 @@
         const user = firebase.auth().currentUser;
         const userId = user.uid;
         const userName = user.displayName;
+
         //これは一意↓
         firebase.database().ref('users/' + user.uid).push().set({
             // これは一意にならない↓
@@ -58,6 +59,8 @@
             userName: userName,
             url: "{{ url }}",
             countTimes: countsToFirebase,
+            good: 0,
+            play: 0,
         });
         window.alert("データベースに送信しました")
     };
