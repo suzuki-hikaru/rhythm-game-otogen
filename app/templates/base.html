@@ -8,6 +8,10 @@
 
     <!-- css -->
     <link rel="stylesheet" href="/static/CSS/style.css">
+    <link rel="stylesheet" href="/static/CSS/base.css">
+    {% block addCSS %}
+
+    {% endblock addCSS %}
 
     <!-- favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
@@ -24,13 +28,13 @@
 
 <body onload="init();">
     <!-- ナビゲーションバー -->
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="/selectMode">音ゲーム</a>
+    <div id="back-design"></div>
+    <nav id="nav-bar">
+        <a href="/selectMode" id="logos"><img src="/static/images/logos.png"></a>
         <ul class="right hide-on-med-and-down">
-            <button class="btn btn-danger mb-2" onclick="logout();">ログアウト</button>
+            <button id="logOut" onclick="logout();">LOGOUT</button>
         </ul>
     </nav>
-
     <!-- コンテンツ -->
     <div class="container">
         {% block content %}

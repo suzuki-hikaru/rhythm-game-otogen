@@ -1,7 +1,27 @@
 {% extends 'base.html'%}
+{% block addCSS %}
+<link rel="stylesheet" href="/static/CSS/index.css">
+{% endblock addCSS %}
 
 {% block content %}
-<a class="navbar-brand" href="/login">ログイン</a>
-<a class="navbar-brand" href="/selectMode">モードセレクト</a>
+<div>
+    <a class="card-play">
+        <p>Play</p>
+    </a>
+</div>
+<div>
+    <a class="card-create">
+        <p>Create</p>
+    </a>
+</div>
+<div>
+    <a class="card-esp">
+        <p>ESP32</p>
+    </a>
+</div>
+
+<div class="boder-line"></div>
+<!-- <a class="navbar-brand" href="/login">ログイン</a>
+<a class="navbar-brand" href="/selectMode">モードセレクト</a> -->
 {{ countTimes }}
 {% endblock content %}

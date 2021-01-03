@@ -7,7 +7,7 @@
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <!-- css -->
-    <!-- <link rel=“stylesheet” href="{{ url_for('static', filename='CSS/style.css') }}"> -->
+    <link rel="stylesheet" href="/static/CSS/login.css">
 
     <!-- favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
@@ -24,13 +24,21 @@
 
 <body>
     <!-- ナビゲーションバー -->
-    <nav class="navbar navbar-light bg-light">
+    <!-- <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="/">音ゲーム</a>
-    </nav>
+    </nav> -->
+
     <!-- コンテンツ -->
     <div class="container">
-        <div id="firebaseui-auth-container"></div>
-        <div id="loader">Loading...</div>
+        <div id="title">otogen</div>
+        <!-- <div id="inform">
+            <p>リズムを作って、ゲームで楽しむ</p> 要検討
+        </div> -->
+        <img src="/static/images/otogen.png" id="title-logo">
+        <div id="login-box">
+            <div id="firebaseui-auth-container"></div>
+            <div id="loader">Loading...</div>
+        </div>
     </div>
     <!-- add:フッター -->
 

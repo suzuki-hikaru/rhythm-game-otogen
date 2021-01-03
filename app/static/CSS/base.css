@@ -1,0 +1,52 @@
+body{
+    background: #f6f7f9;
+}
+#logos{
+    /* logo */
+    position: absolute;
+    width: 200px;
+    height: 80px;
+    left: 26px;
+    top:10px;
+}
+
+#nav-bar{
+    position: absolute;
+    width: 100%;
+    height: 100px;
+    left: 0px;
+    top: 0px;
+
+    background: #4285F4;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+#logOut{
+    position: absolute;
+    width: 177px;
+    height: 56px;
+    left: 1252px;
+    top: 28px;
+
+    color: #FFF9F9;
+    background: #DB4437;
+    border-radius: 40px;
+}
+#logOut:hover{
+    background-color: brown;
+}
+
+#nav-bar2{
+align-items: stretch;
+    /* background: var(--fire-color-canvas); */
+    background: #4285F4;
+    box-shadow: none;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: min-content 1fr min-content;
+    height: 48px;
+    padding: 0 24px;
+    position: absolute;
+    transform: translateZ(0);
+    transition: box-shadow .15s cubic-bezier(0.4, 0, 1, 1),background-color .15s cubic-bezier(0.4, 0, 1, 1);
+    width: 100%;
+}

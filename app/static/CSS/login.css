@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+body{
+    background: #4285F4;
+}
+
+#title{
+    position: absolute;
+    width: 469px;
+    height: 155px;
+    left: 300px;
+    top: 150px;
+
+    font-family: 'Anton', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 144px;
+    line-height: 211px;
+
+    color: #FFF9F9;
+}
+
+#title-logo{
+    position: absolute;
+    width: 500px;
+    height: 600px;
+    left: 740px;
+    top: 100px;
+}
+
+#login-box{
+    position: absolute;
+    width: 340px;
+    height: 115px;
+    left: 340px;
+    top: 400px;
+}
