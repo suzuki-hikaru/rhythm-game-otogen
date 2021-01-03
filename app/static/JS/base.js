@@ -1,19 +1,8 @@
-// ページが読み込み時に実行
 function init() {
-    is_login();
+    loginCheck();
 }
 
-// ログアウト処理
-function logout() {
-    firebase.auth().signOut().then(function () {
-        location.href = '/login';
-    }).catch(function (error) {
-        console.log(error)
-    });
-};
-
-// ログインしているか判定
-function is_login() {
+function loginCheck() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             console.log("login success!!");
@@ -23,3 +12,12 @@ function is_login() {
         }
     });
 }
+
+function logout() {
+    firebase.auth().signOut().then(function () {
+        location.href = '/login';
+    }).catch(function (error) {
+        console.log(error)
+    });
+};
+
