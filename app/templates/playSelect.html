@@ -1,0 +1,56 @@
+{% extends 'base.html'%}
+{% block addCSS %}
+<link rel="stylesheet" href="/static/CSS/playSelect.css">
+{% endblock addCSS %}
+
+{% block content %}
+<div class="row">
+    <!-- main -->
+    <div class="col-7">
+        <div>
+            <h2>人気ランキング
+                <label onclick="getData();">🔄</label>
+            </h2>
+        </div>
+        <div class="table-card">
+            <table id="table" border="2" max-width="500px">
+            </table>
+        </div>
+    </div>
+    <!-- endmain -->
+    <!-- sub -->
+    <div class="col-4">
+        <div class="docKey-card">
+            <h2>プレイ</h2>
+            <form action="/docPost" method="POST" enctype="multipart/form-data" class="form-inline">
+                <label class="sr-only" for="inlineFormInputName2">docKey</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="play" name="name" placeholder="docKey">
+                <button type="submit" class="btn btn-primary mb-2">GO!</button>
+            </form>
+            <div id="info">
+                <p>演奏希望曲のjumpボタンを押してください。</p>
+            </div>
+        </div>
+
+        <div class="search-card">
+            <h2>曲探し</h2>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="searchTitle" name="title" placeholder="キーワード">
+            <button type="submit" onclick="getTitleData();" class="btn btn-primary mb-2">検索</button>
+            <br>
+            <input type="text" class="form-control mb-2 mr-sm-2" id="searchURL" name="name"
+                placeholder="https://www.youtube.com/watch?v=○○○○○○">
+            <button type="submit" onclick="getURLData();" class="btn btn-primary mb-2">検索</button>
+        </div>
+    </div>
+    <!-- endsub -->
+</div>
+{% endblock content %}
+
+{% block addJS %}
+<script src="/static/JS/selectMode.js"></script>
+<script>
+    window.onload = function () {
+        getData();
+    };
+</script>
+{% endblock addJS %}

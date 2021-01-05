@@ -22,6 +22,10 @@ def index():
 def select():
     return render_template("selectMode.html",)
 
+@app.route("/playSelect", methods=['GET','POST'])
+def ps():
+    return render_template("playSelect.html",)
+
 @app.route("/login", methods=['GET','POST'])
 def login():
     return render_template("login.html",)
