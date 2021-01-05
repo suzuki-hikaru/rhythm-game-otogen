@@ -4,23 +4,27 @@
 {% endblock addCSS %}
 
 {% block content %}
-<div class="item">
-    <a>
-        <p>Play</p>
+<div class="item-container">
+    <!-- play -->
+    <a href=" /playSelect">
+        <div class="item">
+            <p>Play</p>
+        </div>
+    </a>
+
+    <!-- create -->
+    <a href="/create">
+        <div class="item">
+            <p>Create</p>
+        </div>
+    </a>
+
+    <!-- ESP32 -->
+    <a href="esp32">
+        <div class="item">
+            <p>ESP32</p>
+        </div>
     </a>
 </div>
-
-<div class="item">
-    <a>
-        <p>Create</p>
-    </a>
-</div>
-
-<div class="item">
-    <a>
-        <p>ESP32</p>
-    </a>
-</div>
-
 <div class="boder-line"></div>
 {% endblock content %}

@@ -2,38 +2,49 @@
 body{
     background: #f6f7f9;
 }
-#logos{
-    position: absolute;
-    width: 200px;
-    height: 80px;
-    left: 26px;
-    top:10px;
+
+
+.wrapper{
+    max-width: 1100px;
+    margin: 0 auto; /* 中央に配置 */
+    padding: 0 4%; /* スマートフォン向け */
 }
 
+a {
+    color: #333333;
+    text-decoration: none;
+  }
+
 #nav-bar{
-    position: absolute;
+    display: flex;
+    justify-content: space-between; /* 両端 */
+
     width: 100%;
     height: 100px;
-    left: 0px;
-    top: 0px;
+    
+    margin: 0 auto; /* 中央に配置 */
+    padding: 0 2%; /* スマートフォン向け */
+    margin-bottom: 50px;
 
     background: #4285F4;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.logos{
+    margin-top: 14px;
+}
 
-
-#logOut{
-    position: absolute;
+.logout{
     width: 177px;
     height: 56px;
-    left: 1252px;
-    top: 28px;
+
+    margin-top: 32px;
 
     color: #FFF9F9;
     background: #DB4437;
     border-radius: 40px;
 }
-#logOut:hover{
+
+.logout:hover{
     background-color: brown;
 }

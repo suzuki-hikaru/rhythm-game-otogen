@@ -1,26 +1,25 @@
 {% extends 'base.html'%}
+
 {% block addCSS %}
 <link rel="stylesheet" href="/static/CSS/playSelect.css">
 {% endblock addCSS %}
 
 {% block content %}
-<div class="row">
+<div class="two-column-container">
+
     <!-- main -->
-    <div class="col-7">
-        <div>
-            <h2>人気ランキング
-                <label onclick="getData();">🔄</label>
-            </h2>
-        </div>
-        <div class="table-card">
-            <table id="table" border="2" max-width="500px">
-            </table>
-        </div>
-    </div>
-    <!-- endmain -->
+    <div class="main">
+        <h2>人気ランキング
+            <label onclick="getData();">🔄</label>
+        </h2>
+        <table id="table" border="2" max-width="500px">
+        </table>
+    </div> <!-- /endmain -->
+
     <!-- sub -->
-    <div class="col-4">
-        <div class="docKey-card">
+    <div class="sub">
+
+        <div class="sub-play">
             <h2>プレイ</h2>
             <form action="/docPost" method="POST" enctype="multipart/form-data" class="form-inline">
                 <label class="sr-only" for="inlineFormInputName2">docKey</label>
@@ -32,7 +31,7 @@
             </div>
         </div>
 
-        <div class="search-card">
+        <div class="sub-search">
             <h2>曲探し</h2>
             <input type="text" class="form-control mb-2 mr-sm-2" id="searchTitle" name="title" placeholder="キーワード">
             <button type="submit" onclick="getTitleData();" class="btn btn-primary mb-2">検索</button>
@@ -41,8 +40,9 @@
                 placeholder="https://www.youtube.com/watch?v=○○○○○○">
             <button type="submit" onclick="getURLData();" class="btn btn-primary mb-2">検索</button>
         </div>
-    </div>
-    <!-- endsub -->
+
+    </div> <!-- /endsub -->
+
 </div>
 {% endblock content %}
 

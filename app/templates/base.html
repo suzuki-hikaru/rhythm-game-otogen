@@ -6,8 +6,10 @@
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
 
-    <!-- css -->
-    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css"> <!-- リセットCSS -->
+    <!-- リセットcss -->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+
+    <!-- 通常css -->
     <link rel="stylesheet" href="/static/CSS/style.css">
     <link rel="stylesheet" href="/static/CSS/base.css">
     {% block addCSS %}
@@ -30,20 +32,25 @@
 <body onload="init();">
     <!-- ナビゲーションバー -->
     <header>
-        <div id="back-design"></div>
         <nav id="nav-bar">
-            <a href="/index" id="logos"><img src="/static/images/logos.png"></a>
-            <ul class="right hide-on-med-and-down">
-                <button id="logOut" onclick="logout();">LOGOUT</button>
+            <a href="/index" class="logos">
+                <img src="/static/images/logos.png">
+            </a>
+            <ul>
+                <button class="logout" onclick="logout();">LOGOUT</button>
             </ul>
         </nav>
+        <div class="back-design"></div> <!-- indexの青色背景 -->
     </header>
+
     <!-- コンテンツ -->
-    <div class="container">
+    <div class="wrapper">
         {% block content %}
         {% endblock content %}
     </div>
+
     <!-- add:フッター -->
+    <footer></footer>
 
     <!-- firebase CDN -->
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
