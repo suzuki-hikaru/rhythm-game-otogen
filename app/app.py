@@ -26,6 +26,14 @@ def select():
 def ps():
     return render_template("playSelect.html",)
 
+@app.route("/createSelect", methods=['GET','POST'])
+def cs():
+    return render_template("createSelect.html",)
+
+@app.route("/esp32", methods=['GET','POST'])
+def esp32():
+    return render_template("esp32.html",)
+
 @app.route("/login", methods=['GET','POST'])
 def login():
     return render_template("login.html",)
@@ -61,7 +69,7 @@ def post_doc():
     return render_template("docPlayMode.html", doc_name = doc_name,)
 
 @app.route("/createData", methods=['GET','POST'])
-def esp32():
+def createData():
     ss_url = request.form['name']
     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_name('app/static/key/config.json', scope)

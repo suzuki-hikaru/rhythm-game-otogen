@@ -71,11 +71,9 @@ function getURLData() {
     });
 };
 
-function jump(oneDocKey) {
-    // var jumpId = document.getElementById(oneDocKey).value;
-    // console.log(jumpId);
-    console.log(oneDocKey);
-    document.getElementById("play").value = oneDocKey;
+function jump(insertObject) {
+    console.log(insertObject);
+    document.getElementById("play").value = insertObject;
     document.getElementById("play").style.backgroundColor = "yellow";
     document.getElementById("info").innerHTML = "<p>＊docKeyが挿入されました。</p>";
 }

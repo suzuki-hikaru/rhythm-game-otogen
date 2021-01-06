@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 
 {% block addCSS %}
-<link rel="stylesheet" href="/static/CSS/playSelect.css">
+<link rel="stylesheet" href="/static/CSS/createSelect.css">
 {% endblock addCSS %}
 
 {% block content %}
@@ -9,7 +9,7 @@
 
     <!-- main -->
     <div class="main">
-        <h2>人気ランキング
+        <h2>Youtube検索
             <label onclick="getData();">🔄</label>
         </h2>
         <table id="table" border="2" max-width="500px">
@@ -19,15 +19,18 @@
     <!-- sub -->
     <div class="sub">
 
-        <div class="sub-play">
-            <h2>プレイ</h2>
-            <form action="/docPost" method="POST" enctype="multipart/form-data" class="form-inline">
-                <label class="sr-only" for="inlineFormInputName2">docKey</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="play" name="name" placeholder="docKey">
+        <div class="sub-create">
+
+            <h2>クリエイト</h2>
+            <form action="/createMode" method="POST" enctype="multipart/form-data" class="form-inline">
+                <label class="sr-only" for="inlineFormInputName2">YoutubeのURL</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="create" name="name"
+                    placeholder="https://www.youtube.com/watch?v=○○○○○○">
                 <button type="submit" class="btn btn-primary mb-2">GO!</button>
             </form>
+
             <div id="info">
-                <p>演奏希望曲のjumpボタンを押してください。</p>
+                <p>演奏希望曲のyoutubeURLを入力してください</p>
             </div>
         </div>
 
@@ -35,10 +38,6 @@
             <h2>曲探し</h2>
             <input type="text" class="form-control mb-2 mr-sm-2" id="searchTitle" name="title" placeholder="キーワード">
             <button type="submit" onclick="getTitleData();" class="btn btn-primary mb-2">検索</button>
-            <br>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="searchURL" name="name"
-                placeholder="https://www.youtube.com/watch?v=○○○○○○">
-            <button type="submit" onclick="getURLData();" class="btn btn-primary mb-2">検索</button>
         </div>
 
     </div> <!-- /endsub -->
@@ -47,7 +46,7 @@
 {% endblock content %}
 
 {% block addJS %}
-<script src="/static/JS/playSelect.js"></script>
+<script src="/static/JS/createSelect.js"></script>
 <script>
     window.onload = function () {
         getData();

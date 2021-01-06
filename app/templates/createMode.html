@@ -1,24 +1,65 @@
 {% extends 'base.html'%}
 
+{% block addCSS %}
+<link rel="stylesheet" href="/static/CSS/createMode.css">
+{% endblock addCSS %}
+
 {% block content %}
-<h1>クリエイトモード</h1>
-<ul>
-    <li>タイトル：{{ yt_title }}</li>
-    <li>リンク：<a href="{{ url }}" target="blank">{{ url }}</a></li>
-    <li>保存先：{{ path }}</li>
-</ul>
-<p>確認したら下の再生ボタンを押してください。</p>
+<div class="title">
+    <h2>{{yt_title}}</h2>
+    <div class="title-container">
+        <div class="title-list">
+            <ul>
+                <li>リンク：<a href="{{ url }}" target="blank">{{ url }}</a></li>
+                <li>保存先：{{ path }}</li>
+            </ul>
+        </div>
+        <div class="title-submit">
+            <div id="goodbutton">
+                <button class="btn btn-danger mb-2" onclick="saveDB();">クリエイトデータを保存</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<!-- ここにビデオが表示 -->
-<div id="ytplayer"></div>
+<div class="play-container">
+    <div class="play-video">
+        <div id="ytplayer">読み込み中です</div>
+    </div>
 
-<!-- ゲームコントローラー -->
-<div>
-    <img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
-    <img src="/static/images/pause.jpg" width="100px" height="100px" onclick="stopGame();" />
-    <img src="/static/images/taiko.png" width="100px" height="100px" onclick="appendCount();" />
-    <!-- 保存 -->
-    <button class="btn btn-danger mb-2" onclick="saveDB();">クリエイトデータを保存</button>
+    <div class="play-game-container">
+        <div class="play-result">
+            <h2>正誤判定</h2>
+            <div id="sumRhythm">
+                <p>総rhythm数</p>
+            </div>
+            <div id="judge">
+                <p>ポン！</p>
+            </div>
+            <div id="rate">
+                <p>一致率：　0.00%</p>
+            </div>
+            <div id="truescore">
+                <p>○： 0</p>
+            </div>
+            <div id="falsescore">
+                <p>×： 0</p>
+            </div>
+        </div>
+        <div class="play-canvas">
+            <canvas height="130px">
+                <img id="pic" style="display: none;" src="/static/images/taiko.png" width="50px" height="50px" />
+            </canvas>
+        </div>
+        <div class="play-button">
+            <!-- 再生 -->
+            <img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
+            <!-- 停止 -->
+            <img src="/static/images/pause.jpg" width="100px" height="100px" onclick="stopGame();" />
+            <!-- どん！ -->
+            <img src="/static/images/taiko.png" width="100px" height="100px" onclick="appendCount();" />
+        </div>
+    </div>
 </div>
 
 {% endblock content %}
@@ -91,8 +132,8 @@
     var player;
     function onYouTubePlayerAPIReady() {
         player = new YT.Player('ytplayer', {
-            height: '360',
-            width: '640',
+            height: '340',
+            width: '570',
             videoId: videoId,
         });
     }

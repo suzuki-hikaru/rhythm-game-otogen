@@ -38,13 +38,3 @@
 .item:hover{
     background-color: #f6f7f9;
   }
-
-.boder-line{
-    width: 1000px;
-    height: 3px;
-
-    margin-top: 50px;
-
-    background: #476282;
-    transform: matrix(1, 0, 0, -1, 0, 0);
-}
