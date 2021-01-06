@@ -1,0 +1,61 @@
+.title{
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+
+    margin: 10px;
+    padding: 10px;
+}
+
+.title-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-self: space-between;
+}
+
+.title-list{
+    width: 60%;
+
+    margin: 10px 10px 0px 10px;
+    padding: 10px 10px 0px 10px;
+}
+
+.title-good{
+    width: 30%;
+
+    margin: 10px 10px 0px 10px;
+    padding: 10px 10px 0px 10px;
+}
+
+.play-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-self: space-between;
+}
+.play-video{
+    width: 60%;
+
+    margin: 10px;
+    padding: 10px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+.play-game-container{
+    display: flex;
+    flex-direction: column;
+
+    width: 35%;
+
+    margin: 10px;
+    padding: 10px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+
+
+
