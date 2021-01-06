@@ -12,7 +12,7 @@ function getData() {
         for (oneUserId in allData) {
             var oneUser = allData[oneUserId];
             for (oneDocKey in oneUser) {
-                const tr = `<tr>\n<form action="/playMode method="POST" enctype="multipart/form-data"><td>${allData[oneUserId][oneDocKey].yt_title}</td><td>${allData[oneUserId][oneDocKey].title}</td><td>${allData[oneUserId][oneDocKey].userName}</td><td>${allData[oneUserId][oneDocKey].good}</td><td><button onclick="jump('${oneDocKey}');">jump</button></td></form>\n</tr>`;
+                const tr = `<tr>\n<form action="/playMode method="POST" enctype="multipart/form-data"><td>${allData[oneUserId][oneDocKey].yt_title}</td><td>${allData[oneUserId][oneDocKey].title}</td><td>${allData[oneUserId][oneDocKey].userName}</td><td>${allData[oneUserId][oneDocKey].good}</td><td><button class="jump" onclick="jump('${oneDocKey}');">jump</button></td></form>\n</tr>`;
                 document.getElementById('th').insertAdjacentHTML('afterend', tr);
             };
         };
@@ -35,9 +35,9 @@ function getTitleData() {
         for (oneUserId in allData) {
             var oneUser = allData[oneUserId];
             for (oneDocKey in oneUser) {
-                if (allData[oneUserId][oneDocKey].title.indexOf(titledata) > -1 || allData[oneUserId][oneDocKey].yt_title.indexOf(titledata) > -1) {
+                if (allData[oneUserId][oneDocKey].title.indexOf(titledata) > -1 || allData[oneUserId][oneDocKey].yt_title.indexOf(titledata) > -1 || allData[oneUserId][oneDocKey].userName.indexOf(titledata) > -1) {
                     // 部分一致のときの処理
-                    const tr = `<tr>\n<form action="/playMode method="POST" enctype="multipart/form-data"><td>${allData[oneUserId][oneDocKey].yt_title}</td><td>${allData[oneUserId][oneDocKey].title}</td><td>${allData[oneUserId][oneDocKey].userName}</td><td>${allData[oneUserId][oneDocKey].good}</td><td><button onclick="jump('${oneDocKey}');">jump</button></td></form>\n</tr>`;
+                    const tr = `<tr>\n<form action="/playMode method="POST" enctype="multipart/form-data"><td>${allData[oneUserId][oneDocKey].yt_title}</td><td>${allData[oneUserId][oneDocKey].title}</td><td>${allData[oneUserId][oneDocKey].userName}</td><td>${allData[oneUserId][oneDocKey].good}</td><td><button class="jump" onclick="jump('${oneDocKey}');">jump</button></td></form>\n</tr>`;
                     document.getElementById('th').insertAdjacentHTML('afterend', tr);
                 }
             };
@@ -63,7 +63,7 @@ function getURLData() {
             var oneUser = allData[oneUserId];
             for (oneDocKey in oneUser) {
                 if (urldata == allData[oneUserId][oneDocKey].url) {
-                    const tr = `<tr>\n<form action="/playMode method="POST" enctype="multipart/form-data"><td>${allData[oneUserId][oneDocKey].yt_title}</td><td>${allData[oneUserId][oneDocKey].title}</td><td>${allData[oneUserId][oneDocKey].userName}</td><td>${allData[oneUserId][oneDocKey].good}</td><td><button onclick="jump('${oneDocKey}');">jump</button></td></form>\n</tr>`;
+                    const tr = `<tr>\n<form action="/playMode method="POST" enctype="multipart/form-data"><td>${allData[oneUserId][oneDocKey].yt_title}</td><td>${allData[oneUserId][oneDocKey].title}</td><td>${allData[oneUserId][oneDocKey].userName}</td><td>${allData[oneUserId][oneDocKey].good}</td><td><button class="jump" onclick="jump('${oneDocKey}');">jump</button></td></form>\n</tr>`;
                     document.getElementById('th').insertAdjacentHTML('afterend', tr);
                 }
             };
@@ -72,8 +72,7 @@ function getURLData() {
 };
 
 function jump(insertObject) {
-    console.log(insertObject);
     document.getElementById("play").value = insertObject;
-    document.getElementById("play").style.backgroundColor = "yellow";
+    document.getElementById("play").style.backgroundColor = "#F4B400";
     document.getElementById("info").innerHTML = "<p>＊docKeyが挿入されました。</p>";
 }

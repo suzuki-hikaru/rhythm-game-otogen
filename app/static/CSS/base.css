@@ -1,8 +1,138 @@
 @charset "UTF-8";
 
 body{
+    color: #333333;
     background: #f6f7f9;
 }
+
+label{
+    font-size: 1.125rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+#scroll-box{
+    height: 450px;
+
+    overflow:hidden;
+    overflow-y:scroll;
+
+    border:1px solid #ccc;
+    
+    padding:0 20px;
+}  
+  
+table{
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    width: 100%;
+}
+  
+table tr{
+    border-bottom: solid 1px #eee;
+    cursor: pointer;
+}
+
+/* カーソルあわせたとき */
+/* table tr:hover{
+  background-color: #d4f0fd;
+} */
+  
+table th,table td{
+    text-align: center;
+    width: 25%;
+    padding: 15px 0;
+}
+
+button.jump{
+    width: 60px;
+    height: 45px;
+
+    margin: 10px;
+    padding: 10px;
+
+    text-align: center;
+
+    color:#333333;
+    background: #ffffff;
+
+    border:1px solid #333333;
+    border-radius: 40px;   
+}
+button.jump:hover{
+    width: 60px;
+    height: 45px;
+
+    margin: 10px;
+    padding: 10px;
+
+    text-align: center;
+
+    color:#FFFFFF;
+    background: #F4B400;
+
+    border:1px solid #F4B400;
+    border-radius: 40px;   
+}
+
+  button.yellow{
+    width: 60px;
+    height: 40px;
+
+    margin: 10px;
+    padding: 10px;
+
+    text-align: center;
+
+    color: #FFF9F9;
+    background: #F4B400;
+    border-radius: 40px;   
+}
+
+button.green{
+    width: 60px;
+    height: 40px;
+
+    margin: 10px;
+    padding: 10px;
+
+    text-align: center;
+
+    color: #FFF9F9;
+    background: #0F9D58;
+    border-radius: 40px;   
+}
+
+button.blue{
+    width: 80px;
+    height: 40px;
+
+    margin: 10px;
+    padding: 10px;
+
+    color: #FFF9F9;
+    background: #4285F4;
+    border-radius: 40px;   
+}
+
+
+/* おざなり */
+span{
+    cursor: pointer;
+}
+
+input[type="text"]{
+    background-color: rgba(255,255,255,.5);/* 半透明 */
+
+    border: 1px #333333 solid;
+    border-radius: 5px;
+
+    padding: 10px;
+
+    font-size: 1rem;
+}
+
 canvas{
     background: #F4B400;
 }
@@ -56,7 +186,7 @@ a {
     width: auto;
     height: 3px;
 
-    margin-top: 50px;
+    margin: 50px 0px 25px 0px;
 
     background: #476282;
     transform: matrix(1, 0, 0, -1, 0, 0);

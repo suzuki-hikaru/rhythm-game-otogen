@@ -9,11 +9,20 @@
 
     <!-- main -->
     <div class="main">
-        <h2>Youtube検索
-            <label onclick="getData();">🔄</label>
-        </h2>
-        <table id="table" border="2" max-width="500px">
-        </table>
+        <h2>Youtube検索結果</h2>
+        <div style="margin: 10px ;">
+            <p>演奏希望曲の[jump]ボタンを押してdocKeyを挿入してください。</p>
+        </div>
+        <div id="scroll-box">
+            <table max-width="500px">
+                {% for item in array2 %}
+                <tr>
+                    <td>{{ item }}</td>
+                    <td><button class="jump" onclick="jump('{{ item }}');">jump</button></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div> <!-- /endmain -->
 
     <!-- sub -->
@@ -22,22 +31,24 @@
         <div class="sub-create">
 
             <h2>クリエイト</h2>
-            <form action="/createMode" method="POST" enctype="multipart/form-data" class="form-inline">
-                <label class="sr-only" for="inlineFormInputName2">YoutubeのURL</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="create" name="name"
-                    placeholder="https://www.youtube.com/watch?v=○○○○○○">
-                <button type="submit" class="btn btn-primary mb-2">GO!</button>
+            <form action="/createMode" method="POST" enctype="multipart/form-data">
+                <label>YoutubeのURL</label>
+                <input type="text" id="create" name="name" placeholder="https://www.youtube.com/watch?v=○○○○○○">
+                <button type="submit" class="green">GO!</button>
             </form>
 
             <div id="info">
-                <p>演奏希望曲のyoutubeURLを入力してください</p>
+                <p>作成希望曲のyoutubeURLを入力してください</p>
             </div>
         </div>
 
         <div class="sub-search">
             <h2>曲探し</h2>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="searchTitle" name="title" placeholder="キーワード">
-            <button type="submit" onclick="getTitleData();" class="btn btn-primary mb-2">検索</button>
+            <form action="/youtube" method="POST" enctype="multipart/form-data" class="form-inline">
+                <label class="sr-only" for="inlineFormInputName2">Youtube検索</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" name="name" placeholder="キーワード">
+                <button type="submit" class="blue">検索</button>
+            </form>
         </div>
 
     </div> <!-- /endsub -->
@@ -49,7 +60,6 @@
 <script src="/static/JS/createSelect.js"></script>
 <script>
     window.onload = function () {
-        getData();
     };
 </script>
 {% endblock addJS %}

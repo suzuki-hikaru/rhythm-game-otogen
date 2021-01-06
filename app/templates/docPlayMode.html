@@ -101,7 +101,7 @@
                         var goodUser = allData[oneUserId][oneDocKey].goodUser;
                         var good = allData[oneUserId][oneDocKey].good;
                         console.log(good);
-                        document.getElementById("goodbutton").innerHTML = `<button id="good" class="btn btn-danger mb-2" onclick="goodDB();">いいね：${good}</button>`
+                        document.getElementById("goodbutton").innerHTML = `<button id="good" class="btn btn-danger mb-2" onclick="goodDB();">♡${good}</button>`
 
                         firebase.database().ref('users/' + oneUserId + '/' + oneDocKey).set({
                             good: good,
@@ -142,7 +142,7 @@
                         var goodUser = allData[oneUserId][oneDocKey].goodUser;
                         var good = allData[oneUserId][oneDocKey].good + 1;
                         console.log(good);
-                        document.getElementById("goodbutton").innerHTML = `<button id="good" class="btn btn-danger mb-2" onclick="goodDB();">いいね：${good}</button>`
+                        document.getElementById("goodbutton").innerHTML = `<button id="good" class="red" onclick="goodDB();">♡${good}</button>`
 
                         firebase.database().ref('users/' + oneUserId + '/' + oneDocKey).set({
                             good: good,

@@ -10,35 +10,39 @@
     <!-- main -->
     <div class="main">
         <h2>人気ランキング
-            <label onclick="getData();">🔄</label>
+            <span onclick="getData();">🔄</span>
         </h2>
-        <table id="table" border="2" max-width="500px">
-        </table>
+        <div style="margin: 10px ;">
+            <p>演奏希望曲の[jump]ボタンを押してdocKeyを挿入してください。</p>
+        </div>
+        <div id="scroll-box">
+            <table id="table" max-width="500px">
+            </table>
+        </div>
     </div> <!-- /endmain -->
 
     <!-- sub -->
     <div class="sub">
 
         <div class="sub-play">
-            <h2>プレイ</h2>
-            <form action="/docPost" method="POST" enctype="multipart/form-data" class="form-inline">
-                <label class="sr-only" for="inlineFormInputName2">docKey</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="play" name="name" placeholder="docKey">
-                <button type="submit" class="btn btn-primary mb-2">GO!</button>
-            </form>
+            <h2>プレイモード</h2>
             <div id="info">
-                <p>演奏希望曲のjumpボタンを押してください。</p>
+                <p></p>
             </div>
+            <form action="/docPost" method="POST" enctype="multipart/form-data" class="form-inline">
+                <input type="text" class="form-control mb-2 mr-sm-2" id="play" name="name" placeholder="docKey">
+                <button type="submit" class="green" style="text-align: center;">GO!</button>
+            </form>
         </div>
 
         <div class="sub-search">
             <h2>曲探し</h2>
             <input type="text" class="form-control mb-2 mr-sm-2" id="searchTitle" name="title" placeholder="キーワード">
-            <button type="submit" onclick="getTitleData();" class="btn btn-primary mb-2">検索</button>
-            <br>
+            <button type="submit" onclick="getTitleData();" class="blue">検索</button>
+            <!-- <br>
             <input type="text" class="form-control mb-2 mr-sm-2" id="searchURL" name="name"
                 placeholder="https://www.youtube.com/watch?v=○○○○○○">
-            <button type="submit" onclick="getURLData();" class="btn btn-primary mb-2">検索</button>
+            <button type="submit" onclick="getURLData();" class="blue">検索</button> -->
         </div>
 
     </div> <!-- /endsub -->

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from pytube import YouTube
+from googleapiclient.discovery import build
 import gspread
 import json
 from oauth2client.service_account import ServiceAccountCredentials 
@@ -26,9 +27,9 @@ def select():
 def ps():
     return render_template("playSelect.html",)
 
-@app.route("/createSelect", methods=['GET','POST'])
+@app.route("/createSelect", methods=['GET'])
 def cs():
-    return render_template("createSelect.html",)
+    return render_template("createSelect.html")
 
 @app.route("/esp32", methods=['GET','POST'])
 def esp32():
@@ -88,3 +89,24 @@ def createEsp():
 @app.route("/test", methods=['GET','POST'])
 def test():
     return render_template("testui.html",)
+
+@app.route("/youtube", methods =['POST'])
+def youtube():
+    def get_videos_search(keyword):
+        #apiキーの設定
+        youtube = build('youtube', 'v3', developerKey='')
+        youtube_query = youtube.search().list(q=keyword, part='id,snippet', maxResults=5)
+        youtube_res = youtube_query.execute()
+        return youtube_res.get('items', [])
+
+    name = request.form['name']
+    array =[]
+    array2 =[]
+    result = get_videos_search(name)
+
+    for item in result:
+        if item['id']['kind'] == 'youtube#video':
+            array.append(item['snippet']['title'])
+            array2.append('https://www.youtube.com/watch?v=' + item['id']['videoId'])
+
+    return render_template("createSelect.html",message ='{}の関連動画です'.format(name), array = array, array2 = array2)
