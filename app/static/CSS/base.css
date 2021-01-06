@@ -157,7 +157,7 @@ a {
     
     margin: 0 auto; /* 中央に配置 */
     padding: 0 2%; /* スマートフォン向け */
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 
     background: #4285F4;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
