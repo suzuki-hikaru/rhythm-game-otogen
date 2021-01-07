@@ -184,7 +184,7 @@
             console.log(searchedArray);
             // 挿入
             document.getElementById("sumRhythm").innerHTML = "<p>この曲の総rhythm数：" + searchedArray[0].length + "</p>";
-            document.getElementById("confirm_yt_title").innerHTML = `<h2><a href="${yt_url}">${allData[oneUserId][oneDocKey].yt_title}</a></h2>`;
+            document.getElementById("confirm_yt_title").innerHTML = `<h2><a href="${yt_url}">${allData[oneUserId]["{{ doc_name }}"].yt_title}</a></h2>`;
             document.getElementById("confirm_creater").innerHTML = `<li>作曲者：${userName}</li>`;
         });
     };
