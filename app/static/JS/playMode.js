@@ -10,10 +10,11 @@ let countup = function () {
     if (count == searchedArray[0][i]) {
         i = i + 1;
         console.log("どん！　" + count);
-        document.getElementById("pic").style.display = 'block';
+        // document.getElementById("pic").style.display = 'block';
+        geTest();
     } else {
         console.log(count);
-        document.getElementById("pic").style.display = 'none';
+        // document.getElementById("pic").style.display = 'none';
     };
 };
 
