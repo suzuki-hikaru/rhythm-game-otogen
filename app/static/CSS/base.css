@@ -58,7 +58,7 @@ button.jump{
     background: #ffffff;
 
     border:1px solid #333333;
-    border-radius: 40px;   
+    border-radius: 40px; 
 }
 button.jump:hover{
     width: 60px;
@@ -134,7 +134,7 @@ input[type="text"]{
 }
 
 canvas{
-    background: #F4B400;
+    background: #4285F4;
 }
 
 .wrapper{

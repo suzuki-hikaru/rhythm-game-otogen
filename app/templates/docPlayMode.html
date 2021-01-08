@@ -46,8 +46,8 @@
             </div>
         </div>
         <div class="play-canvas">
-            <canvas height="130px">
-                <img id="pic" style="display: none;" src="/static/images/taiko.png" width="50px" height="50px" />
+            <!-- <img id="pic" style="display: none;" src="/static/images/taiko.png" width="50px" height="50px" /> -->
+            <canvas id="canvas" width="300" height="130">
             </canvas>
         </div>
         <div class="play-button">
@@ -67,6 +67,8 @@
 
 {% block addJS %}
 <script src="/static/JS/playMode.js"></script>
+<!-- <script src="/static/JS/game.js"></script> -->
+
 
 <script>
     window.onload = function () {
@@ -75,6 +77,7 @@
             await getId();
             await onYouTubePlayerAPIReady();
             await addGood();
+            await game();
         }
 
         processAll();
@@ -225,6 +228,104 @@
             videoId: videoId,
         });
     }
+
+    async function game() {
+        let updateVal;
+
+        let Canvas = function () {
+            this.x = document.getElementById("canvas").getBoundingClientRect().left;
+            this.y = document.getElementById("canvas").getBoundingClientRect().top;
+            this.endx = document.getElementById("canvas").getBoundingClientRect().left + 300;
+            this.endy = document.getElementById("canvas").getBoundingClientRect().top + 130;
+        }
+
+        let Player = function () { // Player のコンストラクタ関数
+            this.image = new Image();
+            this.image.style.position = "absolute";
+            this.x = canvas.endx - 20;
+            this.y = canvas.y - 65;
+
+            this.image.src = "/static/images/player.png";
+
+            console.log("僕はここにいる！" + this.x);
+            console.log("僕はここにいる！" + this.y);
+            console.log("僕はこいつだ！" + this.image.src);
+
+            this.update = function () {
+                this.x = this.x;
+                this.y = this.y;
+
+                this.image.style.left = this.x + "px";
+                this.image.style.top = this.y + "px";
+
+            }
+        }
+
+        let Enemy = function () { // Enemy のコンストラクタ関数
+            this.image = new Image();
+            this.image.style.position = "absolute";
+            this.x = canvas.x;
+            this.y = canvas.y + 50;
+
+            this.dx = 2;
+            this.dy = 0;
+
+            this.image.src = "/static/images/oto.png";
+            console.log(this.image.src)
+
+            this.update = function () {
+                this.x = this.x + this.dx;
+                this.y = this.y + this.dy;
+
+                if (this.x > canvas.endx - this.image.width) {
+                    this.x = this.x - this.dx;
+                    // 本当にこれでいいのか...要検討
+                    this.image.style.display = "none"
+                }
+
+                this.image.style.left = this.x + "px";
+                this.image.style.top = this.y + "px";
+
+                if ((Math.abs(player.x - this.x) < player.image.width) && (Math.abs(player.y - this.y) < player.image.height)) {
+                    // gameover();
+                }
+            }
+        }
+
+        // function MouseMove(e) {
+        //     player.x = (e.clientX - player.image.width / 2);
+        //     player.y = (e.clientY - player.image.height / 2);
+        //     player.image.style.left = player.x + "px";
+        //     player.image.style.top = player.y + "px";
+        // }
+
+        let update = function () { // 画像表示のアップデート
+            enemy.update();
+            player.update();
+        }
+
+        function gameover() {
+            clearInterval(updateVal); // 関数updateを一定時間ごとに呼び出していたのを止める．
+        }
+
+        // ブラウザにコンテンツがロードされたときに1度だけ呼ばれる
+        let canvas = new Canvas();
+        let player = new Player();
+        let enemy = new Enemy();
+
+        document.body.appendChild(player.image);
+        document.body.appendChild(enemy.image);
+
+        // マウスが移動したときに MouseMove 関数が呼ばれるようにイベントリスナを設定
+        // if (document.addEventListener) {
+        //     document.addEventListener("mousemove", MouseMove);
+        // } else if (document.attachEvent) {
+        //     document.attachEvent("onmousemove", MouseMove);
+        // }
+
+        updateVal = setInterval(update, 100); // 関数updateを10msごとに呼び出す．
+    }
+
 
 </script>
 {% endblock addJS %}
