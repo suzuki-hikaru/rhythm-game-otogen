@@ -34,9 +34,6 @@ let Enemy = function () { // Enemy のコンストラクタ関数
             // 本当にこれでいいのか...要検討
             this.image.style.display = "none"
         }
-        if ((Math.abs(player.x - this.x) < player.image.width) && (Math.abs(player.y - this.y) < player.image.height)) {
-            // ここでやってもいいけどplayModeで判定したほうが正確
-        }
     }
 }
 function gameover() {
@@ -45,12 +42,14 @@ function gameover() {
 
 /* test */
 let updateVal2;
+let enemy2
+
 let update2 = function () {
     enemy2.update();
 }
 
 let geTest = function () {
-    let enemy2 = new Enemy();
+    enemy2 = new Enemy();
     document.body.appendChild(enemy2.image);
     updateVal2 = setInterval(update2, 100);
 }

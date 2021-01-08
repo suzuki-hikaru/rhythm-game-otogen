@@ -94,7 +94,7 @@ def test():
 def youtube():
     def get_videos_search(keyword):
         #apiキーの設定
-        youtube = build('youtube', 'v3', developerKey='')
+        youtube = build('youtube', 'v3', developerKey='AIzaSyBu27ng7Ibjh4kHksbtvJobBWTzvr8yPIQ')
         youtube_query = youtube.search().list(q=keyword, part='id,snippet', maxResults=5)
         youtube_res = youtube_query.execute()
         return youtube_res.get('items', [])
