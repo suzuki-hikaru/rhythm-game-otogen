@@ -11,16 +11,38 @@
     <div class="main">
         <h2>Youtube検索結果</h2>
         <div style="margin: 10px ;">
-            <p>演奏希望曲の[jump]ボタンを押してdocKeyを挿入してください。</p>
+            <p>右の検索ボックスから曲を検索して、演奏希望曲のjumpボタンを押してください。（デフォルトでは今話題のNiziUがセットされています）</p>
+            <br>
+            <div>
+                <p><strong>{{ message }}</strong></p>
+            </div>
         </div>
         <div id="scroll-box">
             <table max-width="500px">
-                {% for item in array2 %}
                 <tr>
-                    <td>{{ item }}</td>
-                    <td><button class="jump" onclick="jump('{{ item }}');">jump</button></td>
+                    <th>youtubeのタイトル名</th>
+                    <th>Jump</th>
                 </tr>
-                {% endfor %}
+                <tr>
+                    <td>{{ title1 }}</td>
+                    <td><button class="jump" onclick="jump('{{ url1 }}');">jump</button></td>
+                </tr>
+                <tr>
+                    <td>{{ title2 }}</td>
+                    <td><button class="jump" onclick="jump('{{ url2 }}');">jump</button></td>
+                </tr>
+                <tr>
+                    <td>{{ title3 }}</td>
+                    <td><button class="jump" onclick="jump('{{ url3 }}');">jump</button></td>
+                </tr>
+                <!-- <tr>
+                    <td>{{ title4 }}</td>
+                    <td><button class="jump" onclick="jump('{{ url4 }}');">jump</button></td>
+                </tr>
+                <tr>
+                    <td>{{ title5 }}</td>
+                    <td><button class="jump" onclick="jump('{{ url5 }}');">jump</button></td>
+                </tr> -->
             </table>
         </div>
     </div> <!-- /endmain -->
@@ -33,13 +55,10 @@
             <h2>クリエイト</h2>
             <form action="/createMode" method="POST" enctype="multipart/form-data">
                 <label>YoutubeのURL</label>
+                <div id="inform"></div>
                 <input type="text" id="create" name="name" placeholder="https://www.youtube.com/watch?v=○○○○○○">
                 <button type="submit" class="green">GO!</button>
             </form>
-
-            <div id="info">
-                <p>作成希望曲のyoutubeURLを入力してください</p>
-            </div>
         </div>
 
         <div class="sub-search">
@@ -58,8 +77,4 @@
 
 {% block addJS %}
 <script src="/static/JS/createSelect.js"></script>
-<script>
-    window.onload = function () {
-    };
-</script>
 {% endblock addJS %}

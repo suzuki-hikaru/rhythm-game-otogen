@@ -27,9 +27,26 @@ def select():
 def ps():
     return render_template("playSelect.html",)
 
-@app.route("/createSelect", methods=['GET'])
+@app.route("/createSelect", methods=['GET','POST'])
 def cs():
-    return render_template("createSelect.html")
+    def get_videos_search2(keyword):
+        #apiキーの設定
+        youtube = build('youtube', 'v3', developerKey='')
+        youtube_query = youtube.search().list(q=keyword, part='id,snippet', maxResults=5)
+        youtube_res = youtube_query.execute()
+        return youtube_res.get('items', [])
+
+    name = "ニジュ―"
+    array =[]
+    array2 =[]
+    result = get_videos_search2(name)
+
+    for item in result:
+        if item['id']['kind'] == 'youtube#video':
+            array.append(item['snippet']['title'])
+            array2.append('https://www.youtube.com/watch?v=' + item['id']['videoId'])
+
+    return render_template("createSelect.html", title1 = array[0], title2 = array[1], title3 = array[2], title4 = array[3], title5 = array[4], url1 = array2[0], url2 = array2[1], url3 = array2[2], url4 = array2[3], url5 = array2[4])
 
 @app.route("/esp32", methods=['GET','POST'])
 def esp32():
@@ -95,7 +112,7 @@ def youtube():
     def get_videos_search(keyword):
         #apiキーの設定
         youtube = build('youtube', 'v3', developerKey='')
-        youtube_query = youtube.search().list(q=keyword, part='id,snippet', maxResults=5)
+        youtube_query = youtube.search().list(q=keyword, part='id,snippet', maxResults=6)
         youtube_res = youtube_query.execute()
         return youtube_res.get('items', [])
 
@@ -109,4 +126,5 @@ def youtube():
             array.append(item['snippet']['title'])
             array2.append('https://www.youtube.com/watch?v=' + item['id']['videoId'])
 
-    return render_template("createSelect.html",message ='{}の関連動画です'.format(name), array = array, array2 = array2)
+    return render_template("createSelect.html", message ="『{}』の検索結果".format(name), title1 = array[0], title2 = array[1], title3 = array[2], title4 = array[3], title5 = array[4], url1 = array2[0], url2 = array2[1], url3 = array2[2], url4 = array2[3], url5 = array2[4])
+    # return render_template("createSelect.html", message ="『{}』の検索結果".format(name), title1 = array[0], title2 = array[1], title3 = array[2], url1 = array2[0], url2 = array2[1], url3 = array2[2])

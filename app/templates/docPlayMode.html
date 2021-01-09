@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="title">
-    <h2 id="confirm_yt_title"></h2>
+    <h2 id="confirm_yt_title" height="100"></h2>
 
     <div class="title-container">
         <div class="title-list">
@@ -100,7 +100,7 @@
                         var goodUser = allData[oneUserId][oneDocKey].goodUser;
                         var good = allData[oneUserId][oneDocKey].good;
                         console.log(good);
-                        document.getElementById("goodbutton").innerHTML = `<button id="good" class="btn btn-danger mb-2" onclick="goodDB();">♡${good}</button>`
+                        document.getElementById("goodbutton").innerHTML = `<button id="good" class="btn btn-danger mb-2" onclick="goodDB();">❤${good}</button>`
 
                         firebase.database().ref('users/' + oneUserId + '/' + oneDocKey).set({
                             good: good,
@@ -141,7 +141,7 @@
                         var goodUser = allData[oneUserId][oneDocKey].goodUser;
                         var good = allData[oneUserId][oneDocKey].good + 1;
                         console.log(good);
-                        document.getElementById("goodbutton").innerHTML = `<button id="good" class="red" onclick="goodDB();">♡${good}</button>`
+                        document.getElementById("goodbutton").innerHTML = `<button id="good" class="red" onclick="goodDB();">❤${good}</button>`
 
                         firebase.database().ref('users/' + oneUserId + '/' + oneDocKey).set({
                             good: good,
@@ -183,7 +183,7 @@
             console.log(searchedArray);
             // 挿入
             document.getElementById("sumRhythm").innerHTML = "<p>この曲の総rhythm数：" + searchedArray[0].length + "</p>";
-            document.getElementById("confirm_yt_title").innerHTML = `<h2><a href="${yt_url}">${allData[oneUserId]["{{ doc_name }}"].yt_title}</a></h2>`;
+            document.getElementById("confirm_yt_title").textContent = `${allData[oneUserId]["{{ doc_name }}"].yt_title}`;
             document.getElementById("confirm_creater").innerHTML = `<li>作曲者：${userName}</li>`;
         });
     };
@@ -238,7 +238,7 @@
             this.image = new Image();
             this.image.style.position = "absolute";
             this.x = canvas.endx - 20;
-            this.y = canvas.y - 65;
+            this.y = canvas.y;
             this.image.src = "/static/images/player.png";
             this.image.style.left = this.x + "px";
             this.image.style.top = this.y + "px";
@@ -285,6 +285,6 @@
         updateVal = setInterval(update, 100);
     }
 </script>
-<script src="/static/JS/game.js"></script>
+<script src="/static/JS/playgame.js"></script>
 <script src="/static/JS/playMode.js"></script>
 {% endblock addJS %}

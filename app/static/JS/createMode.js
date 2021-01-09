@@ -1,6 +1,7 @@
 /////////　カウント処理/////////
 let count = 0;
 let countupVal;
+let sum = 0;
 
 let countup = function () {
     count++;
@@ -29,8 +30,10 @@ function appendCount() {
     //error: 同じ要素が複数含まれるとplayできない。
     // var apResult = pushArray.indexOf(count);
     // if (apResult == -1) {
+    sum = sum + 1;
+    document.getElementById("sumRhythm").innerHTML = `<p>総rhythm数：${sum}</p>`
     countsToFirebase.push(count);
     // }
     console.log("どん！　" + count);
-
+    ge();
 };

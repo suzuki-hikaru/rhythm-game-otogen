@@ -60,6 +60,15 @@ img{
     z-index: 50;
 }
 
+#good{
+    padding: 5px;
+
+    background: #FFFFFF;
+    border:1px solid #333333;
+    border-radius: 10px;
+}
+
+
 
 
 

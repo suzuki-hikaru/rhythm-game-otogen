@@ -7,7 +7,7 @@ let Canvas = function () {
 
 let Player = function () { // Player のコンストラクタ関数
     this.x = canvas.endx - 20;
-    this.y = canvas.y - 65;
+    this.y = canvas.y;
     this.image = new Image();
     this.image.style.position = "absolute";
     this.image.src = "/static/images/player.png";
@@ -19,7 +19,7 @@ let Enemy = function () { // Enemy のコンストラクタ関数
     this.image = new Image();
     this.image.style.position = "absolute";
     this.x = canvas.x;
-    this.y = canvas.y + 50;
+    this.y = canvas.y + 100;
     this.dx = 2;
     this.dy = 0;
     this.image.src = "/static/images/oto.png";
@@ -58,5 +58,5 @@ var ge = function () {
 
 /* ここが実行 */
 let canvas = new Canvas();
-updateVal2 = setInterval(update2, 100);
+updateVal2 = setInterval(update2, 10);
 ////////////////////////

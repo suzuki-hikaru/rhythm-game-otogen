@@ -75,5 +75,5 @@ function jump(insertObject) {
     console.log(insertObject);
     document.getElementById("create").value = insertObject;
     document.getElementById("create").style.backgroundColor = "#F4B400";
-    document.getElementById("info").innerHTML = "<p>＊urlが挿入されました。</p>";
+    document.getElementById("inform").textContent = "＊urlが挿入されました。";
 }
