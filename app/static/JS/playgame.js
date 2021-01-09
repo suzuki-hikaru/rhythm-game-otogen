@@ -10,7 +10,7 @@ let Enemy = function () { // Enemy のコンストラクタ関数
     this.image.style.position = "absolute";
     this.x = upcanvas.x;
     this.y = upcanvas.y + 40;
-    this.dx = 2;
+    this.dx = 1;
     this.dy = 0;
     this.image.src = "/static/images/oto.png";
 
@@ -41,11 +41,13 @@ let update2 = function () {
 let updateVal2;
 let enemys = [];
 updateVal2 = setInterval(update2, 10);
+const gearea = document.getElementById("gearea")
 
 /* これが呼び出される */
 var ge = function () {
     upcanvas = new upCanvas();
     enemy = new Enemy();
-    document.body.appendChild(enemy.image);
+    // document.body.appendChild(enemy.image);
+    gearea.appendChild(enemy.image);
     enemys.push(enemy);
 }

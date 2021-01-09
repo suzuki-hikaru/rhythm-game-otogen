@@ -13,12 +13,14 @@
     <div class="title-container">
         <div class="title-list">
             <ul>
-                <li>{{ doc_name }}</li>
+                <li id="sumRhythm">総rhythm数</li>
                 <li id="confirm_creater"></li>
             </ul>
         </div>
         <div class="title-good">
             <div id="goodbutton"></div>
+        </div>
+        <div id="gearea" style="display: block;">
         </div>
     </div>
 </div> <!-- /title -->
@@ -36,21 +38,25 @@
 
         <!-- 判定 -->
         <div class="play-result">
-            <h2>正誤判定</h2>
-            <div id="sumRhythm">
-                <p>総rhythm数</p>
-            </div>
-            <div id="judge">
-                <p>ポン！</p>
-            </div>
-            <div id="rate">
-                <p>一致率：　0.00%</p>
-            </div>
-            <div id="truescore">
-                <p>○： 0</p>
-            </div>
-            <div id="falsescore">
-                <p>×： 0</p>
+            <h2>ゲーム画面</h2>
+            <!-- memo: このページdiv使いすぎ... -->
+            <div class="rightleft">
+                <div class="right">
+                    <div id="truescore">
+                        <p>○： 0</p>
+                    </div>
+                    <div id="falsescore">
+                        <p>×： 0</p>
+                    </div>
+                </div>
+                <div class="left">
+                    <div id="rate">
+                        <p>一致率：　0.00%</p>
+                    </div>
+                    <div id="judge">
+                        <p>ポン！</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -115,7 +121,7 @@
             // 確認
             console.log(searchedArray);
             // 挿入
-            document.getElementById("sumRhythm").innerHTML = "<p>この曲の総rhythm数：" + searchedArray[0].length + "</p>";
+            document.getElementById("sumRhythm").textContent = "この曲の総rhythm数：" + searchedArray[0].length;
             document.getElementById("confirm_yt_title").textContent = `${allData[oneUserId]["{{ doc_name }}"].yt_title}`;
             document.getElementById("confirm_creater").innerHTML = `<li>作曲者：${userName}</li>`;
         });
@@ -140,7 +146,7 @@
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    // iframeの設定
+    // playerの定義
     var player;
 
     ///　3. iframeの設定 ///
@@ -207,8 +213,8 @@
         let Player = function () {
             this.image = new Image();
             this.image.style.position = "absolute";
-            this.x = canvas.endx - 20;
-            this.y = canvas.y - 1;
+            this.x = canvas.endx - 50;
+            this.y = canvas.y - 0.5;
             this.image.src = "/static/images/player.png";
             this.image.style.left = this.x + "px";
             this.image.style.top = this.y + "px";
@@ -219,16 +225,16 @@
             this.image.style.position = "absolute";
             this.x = canvas.x;
             this.y = canvas.y + 50;
-            this.dx = 2;
+            this.dx = 0.2;
             this.dy = 0;
-            this.image.src = "/static/images/oto.png";
+            this.image.src = "/static/images/welcome.png";
 
             this.update = function () {
                 this.x = this.x + this.dx;
                 this.y = this.y + this.dy;
                 this.image.style.left = this.x + "px";
                 this.image.style.top = this.y + "px";
-                if (this.x > canvas.endx - this.image.width) {
+                if (this.x > canvas.endx - this.image.width - 30) {
                     this.x = this.x - this.dx;
                     this.image.style.display = "none" //要検討
                 }
@@ -249,7 +255,7 @@
         let welcomeenemy = new welcomeEnemy();
         document.body.appendChild(player.image);
         document.body.appendChild(welcomeenemy.image);
-        updateVal = setInterval(update, 100);
+        updateVal = setInterval(update, 10);
     }
 </script>
 

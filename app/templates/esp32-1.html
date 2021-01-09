@@ -9,16 +9,23 @@
 
     <!-- main -->
     <div class="main">
-        <h2>クリエイトランキング
-            <label onclick="getData();">🔄</label>
-        </h2>
-        <table id="table" border="2" max-width="500px">
-        </table>
+        <div>
+            <h2>spreadsheet idの取得方法</h2>
+            <p>①グーグルスプレッドシートを開きます</p>
+            <p>②URLをコピーします</p>
+            <p>③/d/から/edit#gid=0の間にある文字列を見つけます</p><br>
+
+
+            <p>【例】<br>https://docs.google.com/spreadsheets/d/<br>
+                <strong>16szlUipnKDl7gKbdRhatk2AyBOGyRiqRMktR-VqhbF0</strong>
+                /edit#gid=0<br><br>
+            </p>
+            <image src="/static/images/ss.png" width="90%" height="auto"></image>
+        </div>
     </div> <!-- /endmain -->
 
     <!-- sub -->
     <div class="sub">
-
         <div class="sub-play">
             <h2>ESP32</h2>
             <form action="/esp32-2" method="POST" enctype="multipart/form-data">

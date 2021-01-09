@@ -12,6 +12,23 @@
     flex-wrap: wrap;
     justify-self: space-between;
 }
+.rightleft{
+    display: flex;
+    flex-wrap: wrap;
+    justify-self: space-between;
+}
+.right{
+    width: 33%;
+}
+.left{
+    width: 60%;
+
+    text-align: right;
+}
+
+.play-canvas{
+    margin: 10px 5px 10px 5px; 
+}
 
 .title-list{
     width: 60%;

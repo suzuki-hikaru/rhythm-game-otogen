@@ -1,8 +1,23 @@
 @charset "UTF-8";
+/* regular */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+/* bold */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
 
 body{
     color: #333333;
     background: #f6f7f9;
+    font-family: 'Note Sans', Regular 400;
+}
+
+footer{
+    text-align: center;
+    padding: 26px 0;
+}
+footer p{
+    color: #333;
+    font-size: 0.875rem;
 }
 
 label{
@@ -49,6 +64,7 @@ button.jump{
     border:1px solid #333333;
     border-radius: 40px; 
 }
+
 button.jump:hover{
     width: 60px;
     height: 45px;

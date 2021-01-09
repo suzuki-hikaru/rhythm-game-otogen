@@ -2,20 +2,19 @@
 let count = 0;
 var i = 0;
 let countupVal;
+let combo = 0;
 var trueScore = 0;
 var falseScore = 0;
 
 
 let countup = function () {
     count++;
-    if (count == searchedArray[0][i]) {
+    if ((count + 23) == searchedArray[0][i]) {
         i = i + 1;
         console.log("どん！　" + count);
-        // document.getElementById("pic").style.display = 'block';
         ge();
     } else {
         console.log(count);
-        // document.getElementById("pic").style.display = 'none';
     };
 };
 
@@ -24,7 +23,6 @@ var pushArray = [];
 
 function startGame() {
     player.playVideo();
-    document.getElementById("rate").innerHTML = "<p>一致率：　0/" + searchedArray[0].length + "</p>";
     count = 0;
     i = 0;
     countupVal = setInterval('countup();', 100);
@@ -38,14 +36,12 @@ function stopGame() {
 
 function appendCount() {
     var result = searchedArray[0].indexOf(count);
-    if (result == -1) {
-        console.log("ポン！　×　" + count);
-        document.getElementById("judge").innerHTML = '<p>ポン！　×</p>';
-        falseScore++;
-        document.getElementById("falsescore").innerHTML = "<p>×： " + falseScore + "</p>";
-    } else {
-        console.log("ポン！　○　" + count);
-        document.getElementById("judge").innerHTML = '<p>ポン！　○</p>';
+    var range = searchedArray[0].indexOf(count + 1);
+    var range2 = searchedArray[0].indexOf(count - 1);
+
+    if (result != -1 || range != -1 || range2 != -1) {
+        combo++;
+        document.getElementById("judge").innerHTML = `<p>ポン！ ○   ${conbo}コンボ</p>`;
         var result2 = pushArray.indexOf(count);
         if (result2 == -1) {
             pushArray.push(count);
@@ -54,6 +50,10 @@ function appendCount() {
         }
         document.getElementById("rate").innerHTML = "<p>一致率： " + rate + "%</p>";
         document.getElementById("truescore").innerHTML = "<p>○： " + trueScore + "</p>";
-        // document.getElementById("truescore").innerHTML = "<p>○： " + trueScore + "/" + searchedArray[0].length + "</p>";
+    } else {
+        combo = 0;
+        document.getElementById("judge").innerHTML = `<p>ポン！ ×   ${conbo}コンボ</p>`;
+        falseScore++;
+        document.getElementById("falsescore").innerHTML = "<p>×： " + falseScore + "</p>";
     };
 };
