@@ -1,0 +1,43 @@
+{% extends 'base.html'%}
+
+{% block addCSS %}
+<link rel="stylesheet" href="/static/CSS/esp32-1.css">
+{% endblock addCSS %}
+
+{% block content %}
+<div class="two-column-container">
+
+    <!-- main -->
+    <div class="main">
+        <h2>クリエイトランキング
+            <label onclick="getData();">🔄</label>
+        </h2>
+        <table id="table" border="2" max-width="500px">
+        </table>
+    </div> <!-- /endmain -->
+
+    <!-- sub -->
+    <div class="sub">
+
+        <div class="sub-play">
+            <h2>ESP32</h2>
+            <form action="/esp32-2" method="POST" enctype="multipart/form-data">
+                <label class="sr-only">spreadsheetのURL</label>
+                <input type="text" id="esp" name="name" placeholder="spreadsheet id">
+                <button type="submit" class="green">検索</button>
+            </form>
+        </div>
+
+    </div> <!-- /endsub -->
+
+</div>
+{% endblock content %}
+
+{% block addJS %}
+<script src="/static/JS/esp32-1.js"></script>
+<script>
+    window.onload = function () {
+        getData();
+    };
+</script>
+{% endblock addJS %}

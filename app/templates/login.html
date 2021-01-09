@@ -2,10 +2,6 @@
 <html lang="ja">
 
 <head>
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
     <!-- css -->
     <link rel="stylesheet" href="/static/CSS/login.css">
 
@@ -16,46 +12,37 @@
     <link rel="manifest" href="/static/favicon/site.webmanifest">
     <link rel="mask-icon" href="/static/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#ffffff"> <!-- /favicon -->
 
     <meta charset="UTF-8">
-    <title>音ゲーム</title>
+    <title>otogen-login</title>
 </head>
 
 <body>
-    <!-- ナビゲーションバー -->
-    <!-- <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="/">音ゲーム</a>
-    </nav> -->
 
     <!-- コンテンツ -->
     <div class="container">
         <div id="title">otogen</div>
-        <!-- <div id="inform">
-            <p>リズムを作って、ゲームで楽しむ</p> 要検討
-        </div> -->
+
         <img src="/static/images/otogen.png" id="title-logo">
         <div id="login-box">
             <div id="firebaseui-auth-container"></div>
             <div id="loader">Loading...</div>
         </div>
-    </div>
-    <!-- add:フッター -->
+    </div> <!-- /コンテンツ -->
 
     <!-- firebase CDN -->
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
     <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
-
     <!-- firebase ui CDN  -->
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-
     <!-- js -->
     <script src="/static/key/config.js"></script>
     <script src="/static/JS/base.js"></script>
-    <script src="/static/JS/login2.js"></script>
+    <script src="/static/JS/login.js"></script>
 </body>
 
 </html>

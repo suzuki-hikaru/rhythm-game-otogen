@@ -26,23 +26,17 @@
 
         <div class="sub-play">
             <h2>プレイモード</h2>
-            <div id="info">
-                <p></p>
-            </div>
-            <form action="/docPost" method="POST" enctype="multipart/form-data" class="form-inline">
-                <input type="text" class="form-control mb-2 mr-sm-2" id="play" name="name" placeholder="docKey">
-                <button type="submit" class="green" style="text-align: center;">GO!</button>
+            <div id="inform"></div>
+            <form action="/docPost" method="POST" enctype="multipart/form-data">
+                <input type="text" id="play" name="name" placeholder="docKey">
+                <button type="submit" class="green">GO!</button>
             </form>
         </div>
 
         <div class="sub-search">
             <h2>曲探し</h2>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="searchTitle" name="title" placeholder="キーワード">
+            <input type="text" id="searchTitle" name="title" placeholder="キーワード">
             <button type="submit" onclick="getTitleData();" class="blue">検索</button>
-            <!-- <br>
-            <input type="text" class="form-control mb-2 mr-sm-2" id="searchURL" name="name"
-                placeholder="https://www.youtube.com/watch?v=○○○○○○">
-            <button type="submit" onclick="getURLData();" class="blue">検索</button> -->
         </div>
 
     </div> <!-- /endsub -->
@@ -51,7 +45,11 @@
 {% endblock content %}
 
 {% block addJS %}
+
+<!-- 検索処理、テーブル作成処理 -->
 <script src="/static/JS/playSelect.js"></script>
+
+<!-- 読み込みした際のテーブル作成 -->
 <script>
     window.onload = function () {
         getData();

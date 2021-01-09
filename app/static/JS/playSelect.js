@@ -74,5 +74,5 @@ function getURLData() {
 function jump(insertObject) {
     document.getElementById("play").value = insertObject;
     document.getElementById("play").style.backgroundColor = "#F4B400";
-    document.getElementById("info").innerHTML = "<p>＊docKeyが挿入されました。</p>";
+    document.getElementById("inform").innerHTML = "<p>＊docKeyが挿入されました。</p>";
 }

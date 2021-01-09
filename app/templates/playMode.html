@@ -1,10 +1,12 @@
 {% extends 'base.html'%}
 
 {% block addCSS %}
-<link rel="stylesheet" href="/static/CSS/docPlay.css">
+<link rel="stylesheet" href="/static/CSS/playMode.css">
 {% endblock addCSS %}
 
 {% block content %}
+
+<!-- title -->
 <div class="title">
     <h2 id="confirm_yt_title" height="100"></h2>
 
@@ -19,14 +21,20 @@
             <div id="goodbutton"></div>
         </div>
     </div>
-</div>
+</div> <!-- /title -->
 
+<!-- main -->
 <div class="play-container">
+
+    <!-- youtube画面 -->
     <div class="play-video">
         <div id="ytplayer">読み込み中です</div>
     </div>
 
+    <!-- ゲーム画面 -->
     <div class="play-game-container">
+
+        <!-- 判定 -->
         <div class="play-result">
             <h2>正誤判定</h2>
             <div id="sumRhythm">
@@ -45,11 +53,14 @@
                 <p>×： 0</p>
             </div>
         </div>
+
+        <!-- canvas -->
         <div class="play-canvas">
-            <!-- <img id="pic" style="display: none;" src="/static/images/taiko.png" width="50px" height="50px" /> -->
             <canvas id="canvas" width="300" height="130">
             </canvas>
         </div>
+
+        <!-- button -->
         <div class="play-button">
             <!-- 再生 -->
             <img src="/static/images/play.png" width="100px" height="100px" onclick="startGame();" />
@@ -58,9 +69,12 @@
             <!-- どん！ -->
             <img src="/static/images/taiko.png" width="100px" height="100px" onclick="appendCount();" />
         </div>
-    </div>
-</div>
 
+    </div> <!-- /ゲーム画面 -->
+
+</div> <!-- /main -->
+
+<!-- border -->
 <div class="boder-line"></div>
 
 {% endblock content %}
@@ -75,10 +89,70 @@
             await addGood();
             await game();
         }
-
         processAll();
     };
 
+
+    /// 1. 検索処理　///
+    var searchedArray = [];
+    var yt_url;
+
+    const getSearchedData = async function () {
+        //取得するデータ範囲の設定
+        await firebase.database().ref('/users/').once('value').then(function (snapshot) {
+            var allData = snapshot.val();
+            //繰り返してタイトルを取得。多分推奨のやり方ではない
+            for (oneUserId in allData) {
+                var oneUser = allData[oneUserId];
+                for (oneDocKey in oneUser) {
+                    if (oneDocKey == "{{ doc_name }}") {
+                        searchedArray.push(allData[oneUserId][oneDocKey].countTimes);
+                        yt_url = allData[oneUserId][oneDocKey].url;
+                        userName = allData[oneUserId][oneDocKey].userName;
+                    };
+                };
+            };
+            // 確認
+            console.log(searchedArray);
+            // 挿入
+            document.getElementById("sumRhythm").innerHTML = "<p>この曲の総rhythm数：" + searchedArray[0].length + "</p>";
+            document.getElementById("confirm_yt_title").textContent = `${allData[oneUserId]["{{ doc_name }}"].yt_title}`;
+            document.getElementById("confirm_creater").innerHTML = `<li>作曲者：${userName}</li>`;
+        });
+    };
+
+    ///　2. youtube-idの取得 ///
+    const getId = async function () {
+        var url = yt_url;
+        var videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
+
+        if (videoid != null) {
+            console.log("video id = ", videoid[1]);
+            videoId = videoid[1]
+        } else {
+            console.log("The youtube url is not valid.");
+        }
+    };
+
+    // iframeの作成
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // iframeの設定
+    var player;
+
+    ///　3. iframeの設定 ///
+    const onYouTubePlayerAPIReady = async function () {
+        player = new YT.Player('ytplayer', {
+            height: '340',
+            width: '570',
+            videoId: videoId,
+        });
+    }
+
+    /// 4. 読み込み時のgood数挿入 ///
     async function addGood() {
         const user = firebase.auth().currentUser;
         const DK = "{{ doc_name }}";
@@ -119,6 +193,72 @@
         });
     };
 
+    /// 5. 読み込み時のwelcomEenemyとplayerのインスタンス作成 ///
+    async function game() {
+        let updateVal;
+
+        let Canvas = function () {
+            this.x = document.getElementById("canvas").getBoundingClientRect().left;
+            this.y = document.getElementById("canvas").getBoundingClientRect().top;
+            this.endx = document.getElementById("canvas").getBoundingClientRect().left + 300;
+            this.endy = document.getElementById("canvas").getBoundingClientRect().top + 130;
+        }
+
+        let Player = function () {
+            this.image = new Image();
+            this.image.style.position = "absolute";
+            this.x = canvas.endx - 20;
+            this.y = canvas.y - 1;
+            this.image.src = "/static/images/player.png";
+            this.image.style.left = this.x + "px";
+            this.image.style.top = this.y + "px";
+        }
+
+        let welcomeEnemy = function () {
+            this.image = new Image();
+            this.image.style.position = "absolute";
+            this.x = canvas.x;
+            this.y = canvas.y + 50;
+            this.dx = 2;
+            this.dy = 0;
+            this.image.src = "/static/images/oto.png";
+
+            this.update = function () {
+                this.x = this.x + this.dx;
+                this.y = this.y + this.dy;
+                this.image.style.left = this.x + "px";
+                this.image.style.top = this.y + "px";
+                if (this.x > canvas.endx - this.image.width) {
+                    this.x = this.x - this.dx;
+                    this.image.style.display = "none" //要検討
+                }
+            }
+        }
+
+        let update = function () {
+            welcomeenemy.update();
+        }
+
+        let gameover = function () {
+            clearInterval(updateVal);
+        }
+
+        /* ここで指示*/
+        let canvas = new Canvas();
+        let player = new Player();
+        let welcomeenemy = new welcomeEnemy();
+        document.body.appendChild(player.image);
+        document.body.appendChild(welcomeenemy.image);
+        updateVal = setInterval(update, 100);
+    }
+</script>
+
+<!-- インスタンスの作成、カウント -->
+<script src="/static/JS/playgame.js"></script>
+<script src="/static/JS/playMode.js"></script>
+
+<!-- good追加時の処理 -->
+<script>
     function goodDB() {
         const user = firebase.auth().currentUser;
         const DK = "{{ doc_name }}";
@@ -159,132 +299,5 @@
             };
         });
     };
-
-    /////////// 検索処理　//////////////
-    var searchedArray = [];
-    var yt_url;
-
-    const getSearchedData = async function () {
-        //取得するデータ範囲の設定
-        await firebase.database().ref('/users/').once('value').then(function (snapshot) {
-            var allData = snapshot.val();
-            //繰り返してタイトルを取得。多分推奨のやり方ではない
-            for (oneUserId in allData) {
-                var oneUser = allData[oneUserId];
-                for (oneDocKey in oneUser) {
-                    if (oneDocKey == "{{ doc_name }}") {
-                        searchedArray.push(allData[oneUserId][oneDocKey].countTimes);
-                        yt_url = allData[oneUserId][oneDocKey].url;
-                        userName = allData[oneUserId][oneDocKey].userName;
-                    };
-                };
-            };
-            // 確認
-            console.log(searchedArray);
-            // 挿入
-            document.getElementById("sumRhythm").innerHTML = "<p>この曲の総rhythm数：" + searchedArray[0].length + "</p>";
-            document.getElementById("confirm_yt_title").textContent = `${allData[oneUserId]["{{ doc_name }}"].yt_title}`;
-            document.getElementById("confirm_creater").innerHTML = `<li>作曲者：${userName}</li>`;
-        });
-    };
-
-    ////////////　youtube /////////////
-
-    // youtubeidの取得
-    const getId = async function () {
-        var url = yt_url;
-        // var url = "https://www.youtube.com/watch?v=3ymwOvzhwHs";
-        var videoid = url.match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/);
-
-        if (videoid != null) {
-            console.log("video id = ", videoid[1]);
-            videoId = videoid[1]
-        } else {
-            console.log("The youtube url is not valid.");
-        }
-    };
-
-    // 関数呼び出し、id更新
-    var videoId;
-
-    // iframeの作成
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/player_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    // iframeの設定
-    var player;
-
-    const onYouTubePlayerAPIReady = function () {
-        player = new YT.Player('ytplayer', {
-            height: '340',
-            width: '570',
-            videoId: videoId,
-        });
-    }
-
-    async function game() {
-        let updateVal;
-
-        let Canvas = function () {
-            this.x = document.getElementById("canvas").getBoundingClientRect().left;
-            this.y = document.getElementById("canvas").getBoundingClientRect().top;
-            this.endx = document.getElementById("canvas").getBoundingClientRect().left + 300;
-            this.endy = document.getElementById("canvas").getBoundingClientRect().top + 130;
-        }
-
-        let Player = function () { // Player のコンストラクタ関数
-            this.image = new Image();
-            this.image.style.position = "absolute";
-            this.x = canvas.endx - 20;
-            this.y = canvas.y;
-            this.image.src = "/static/images/player.png";
-            this.image.style.left = this.x + "px";
-            this.image.style.top = this.y + "px";
-        }
-
-        let Enemy = function () { // Enemy のコンストラクタ関数
-            this.image = new Image();
-            this.image.style.position = "absolute";
-            this.x = canvas.x;
-            this.y = canvas.y + 50;
-            this.dx = 2;
-            this.dy = 0;
-            this.image.src = "/static/images/oto.png";
-            this.update = function () {
-                this.x = this.x + this.dx;
-                this.y = this.y + this.dy;
-
-                if (this.x > canvas.endx - this.image.width) {
-                    this.x = this.x - this.dx;
-                    // 本当にこれでいいのか...要検討
-                    this.image.style.display = "none"
-                }
-
-                this.image.style.left = this.x + "px";
-                this.image.style.top = this.y + "px";
-
-            }
-        }
-
-        let update = function () { // 画像表示のアップデート
-            enemy.update();
-        }
-
-        function gameover() {
-            clearInterval(updateVal);
-        }
-
-        /* ここで指示*/
-        let canvas = new Canvas();
-        let player = new Player();
-        let enemy = new Enemy();
-        document.body.appendChild(player.image);
-        document.body.appendChild(enemy.image);
-        updateVal = setInterval(update, 100);
-    }
 </script>
-<script src="/static/JS/playgame.js"></script>
-<script src="/static/JS/playMode.js"></script>
 {% endblock addJS %}

@@ -2,18 +2,12 @@
 <html lang="ja">
 
 <head>
-    <!-- bootstrap -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
-
     <!-- リセットcss -->
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 
     <!-- 通常css -->
-    <!-- <link rel="stylesheet" href="/static/CSS/style.css"> -->
     <link rel="stylesheet" href="/static/CSS/base.css">
     {% block addCSS %}
-
     {% endblock addCSS %}
 
     <!-- favicon -->
@@ -26,11 +20,11 @@
     <meta name="theme-color" content="#ffffff">
 
     <meta charset="UTF-8">
-    <title>音ゲーム</title>
+    <title>otogen</title>
 </head>
 
 <body onload="init();">
-    <!-- ナビゲーションバー -->
+    <!-- header -->
     <header>
         <nav id="nav-bar">
             <a href="/index" class="logos">
@@ -40,17 +34,18 @@
                 <button class="logout" onclick="logout();">LOGOUT</button>
             </ul>
         </nav>
-        <div class="back-design"></div> <!-- indexの青色背景 -->
+        <div class="back-design"></div>
     </header>
 
-    <!-- コンテンツ -->
+    <!-- contents -->
     <div class="wrapper">
         {% block content %}
         {% endblock content %}
     </div>
 
-    <!-- add:フッター -->
-    <footer></footer>
+    <!-- footer -->
+    <!-- <footer>@2021 suzukihikaru all reserverd</footer> -->
+
 
     <!-- firebase CDN -->
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
