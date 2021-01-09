@@ -42,18 +42,21 @@ function gameover() {
 
 /* test */
 let updateVal2;
-let enemy2
+let enemy2 = [];
 
 let update2 = function () {
-    enemy2.update();
+    for (let item of enemy2) {
+        item.update();
+    }
 }
 
-let geTest = function () {
-    enemy2 = new Enemy();
-    document.body.appendChild(enemy2.image);
-    updateVal2 = setInterval(update2, 100);
+var ge = function () {
+    ene = new Enemy();
+    document.body.appendChild(ene.image);
+    enemy2.push(ene);
 }
 
 /* ここが実行 */
 let canvas = new Canvas();
+updateVal2 = setInterval(update2, 100);
 ////////////////////////

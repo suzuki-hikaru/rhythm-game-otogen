@@ -5,13 +5,14 @@ let countupVal;
 var trueScore = 0;
 var falseScore = 0;
 
+
 let countup = function () {
     count++;
     if (count == searchedArray[0][i]) {
         i = i + 1;
         console.log("どん！　" + count);
         // document.getElementById("pic").style.display = 'block';
-        geTest();
+        ge();
     } else {
         console.log(count);
         // document.getElementById("pic").style.display = 'none';
