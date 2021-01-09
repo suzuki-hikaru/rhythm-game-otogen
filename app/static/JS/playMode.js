@@ -41,7 +41,7 @@ function appendCount() {
 
     if (result != -1 || range != -1 || range2 != -1) {
         combo++;
-        document.getElementById("judge").innerHTML = `<p>ポン！ ○   ${conbo}コンボ</p>`;
+        document.getElementById("judge").innerHTML = `<p>ポン！ ○   ${combo}コンボ</p>`;
         var result2 = pushArray.indexOf(count);
         if (result2 == -1) {
             pushArray.push(count);
@@ -52,7 +52,7 @@ function appendCount() {
         document.getElementById("truescore").innerHTML = "<p>○： " + trueScore + "</p>";
     } else {
         combo = 0;
-        document.getElementById("judge").innerHTML = `<p>ポン！ ×   ${conbo}コンボ</p>`;
+        document.getElementById("judge").innerHTML = `<p>ポン！ ×   ${combo}コンボ</p>`;
         falseScore++;
         document.getElementById("falsescore").innerHTML = "<p>×： " + falseScore + "</p>";
     };

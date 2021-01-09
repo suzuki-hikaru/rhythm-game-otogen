@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from flask import Flask, render_template, request
 from pytube import YouTube
 from googleapiclient.discovery import build
@@ -97,12 +99,12 @@ def createData():
     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
     credentials = ServiceAccountCredentials.from_json_keyfile_name('app/static/key/config.json', scope)
     gc = gspread.authorize(credentials)
-    # SPREADSHEET_KEY = '1LecCnNZvPWf6w3cMp2HD9EZxslSTSFpwxjtcILBZJ-M' ##テスト用
-    # SPREADSHEET_KEY = '1YmMxOOkyu7hrPy9o6TIF2S-MBjxcmZzm-UT8cZK25os' ##compose
     SPREADSHEET_KEY = ss_url
     worksheet = gc.open_by_key(SPREADSHEET_KEY).sheet1
     col_list_time = worksheet.col_values(3)
-    return render_template("esp32-2.html",countTimes=col_list_time)
+    strcol = str(col_list_time)
+    strcol = (strcol[1:-1])
+    return render_template("esp32-2.html",countTimes=col_list_time, strcol=strcol)
 
 @app.route("/createEsp", methods=['POST'])
 def createEsp():
