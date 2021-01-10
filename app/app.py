@@ -39,7 +39,7 @@ def post_doc():
 def youtube():
     def get_videos_search(keyword):
         #apiキーの設定
-        youtube = build('youtube', 'v3', developerKey='')
+        youtube = build('youtube', 'v3', developerKey='AIzaSyBu27ng7Ibjh4kHksbtvJobBWTzvr8yPIQ')
         youtube_query = youtube.search().list(q=keyword, part='id,snippet', maxResults=6)
         youtube_res = youtube_query.execute()
         return youtube_res.get('items', [])
@@ -60,7 +60,7 @@ def youtube():
 @app.route("/createSelect", methods=['GET','POST'])
 def cs():
     def get_videos_search2(keyword):
-        youtube = build('youtube', 'v3', developerKey='')
+        youtube = build('youtube', 'v3', developerKey='AIzaSyBu27ng7Ibjh4kHksbtvJobBWTzvr8yPIQ')
         youtube_query = youtube.search().list(q=keyword, part='id,snippet', maxResults=6)
         youtube_res = youtube_query.execute()
         return youtube_res.get('items', [])

@@ -8,7 +8,6 @@ let countup = function () {
     console.log(count);
 };
 
-///////////　ゲームコントローラー　//////////
 countsToFirebase = [];
 
 function startGame() {

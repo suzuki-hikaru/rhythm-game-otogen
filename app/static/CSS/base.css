@@ -49,6 +49,10 @@ table th,table td{
     padding: 15px 0;
 }
 
+button:hover{
+    opacity:0.8;
+}
+
 button.jump{
     width: 60px;
     height: 45px;
@@ -181,10 +185,6 @@ a {
     color: #FFF9F9;
     background: #DB4437;
     border-radius: 40px;
-}
-
-.logout:hover{
-    background-color: brown;
 }
 
 .boder-line{

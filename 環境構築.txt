@@ -1,38 +1,41 @@
-リポジトリのクローン
+# リポジトリのクローン
 git clone git@github.com:user/111.git
 
-sudoの更新
+# パッケージマネージャーの更新
 sudo apt update
 sudo apt upgrade
 
+# pipのインストール
 sudo apt install python-pip
 pip install --upgrade pip
+
+# venvのインストール
 sudo apt install python3-venv
 
-ブイエンブ
+# venvの作成とアクティブ化
 python3 -m venv my_venv
 . my_venv/bin/activate
 
----管理用----------------------
+# venvで作った環境の中にこのシステムに必要なモジュールをいれる
+pip install -r requirements.txt
+
+# サーバーをたてる
+python run.py
+
+
+---以下 管理用------------------
 pip list
 pip freeze
 pip freeze > requirements.txt
--------------------------------
 
-pip install -r requirements.txt
-
-Flask起動
-
-python run.py
-
-(最初にreadmeを作った時)---
+---最初にreadmeを作った時-------
 git fetch
 git merge origin/master
 
 こうするとlocalにReadme.mdがmergeされる。あとは以下のコマンドでpushを再度チャレンジ。
 git push -u origin master
----------------------------
 
+---Git--------------------------
 git init
 git add .
 git commit -m "base"
@@ -41,10 +44,7 @@ git remote add origin git@github.com:suzuki-hikaru/rhythm-game.git
 git remote set-url origin git@github.com:suzuki-hikaru/rhythm-game.git
 git push -u origin master
 
-
-----------------------------
-portが埋まっているとき
+---portが埋まっているとき---------
 apt install lsof
 lsof -i :5000
 kill -9 901
-
