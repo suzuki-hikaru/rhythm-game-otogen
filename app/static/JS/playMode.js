@@ -5,7 +5,7 @@ let countupVal;
 let combo = 0;
 var trueScore = 0;
 var falseScore = 0;
-
+let j = true;
 
 let countup = function () {
     count++;
@@ -16,6 +16,9 @@ let countup = function () {
     } else {
         console.log(count);
     };
+    if (conbo != 0 && j == false) {
+        combo = 0;
+    }
 };
 
 ///////////　ゲームコントローラー　//////////
@@ -42,6 +45,7 @@ function appendCount() {
     if (result != -1 || range != -1 || range2 != -1) {
         combo++;
         document.getElementById("judge").innerHTML = `<p>ポン！ ○   ${combo}コンボ</p>`;
+        j = true;
         var result2 = pushArray.indexOf(count);
         if (result2 == -1) {
             pushArray.push(count);
@@ -51,7 +55,7 @@ function appendCount() {
         document.getElementById("rate").innerHTML = "<p>一致率： " + rate + "%</p>";
         document.getElementById("truescore").innerHTML = "<p>○： " + trueScore + "</p>";
     } else {
-        combo = 0;
+        j = false;
         document.getElementById("judge").innerHTML = `<p>ポン！ ×   ${combo}コンボ</p>`;
         falseScore++;
         document.getElementById("falsescore").innerHTML = "<p>×： " + falseScore + "</p>";
